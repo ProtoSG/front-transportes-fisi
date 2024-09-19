@@ -1,6 +1,6 @@
 import logo from '../assets/logo.png'
 
-export default function Header() {
+export function Header() {
   return (
     <header className='flex flex-col gap-4'>
       <div className='flex gap-7 justify-center items-center'>

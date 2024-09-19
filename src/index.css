@@ -11,3 +11,16 @@ body {
   background: #f3f3f3;
 }
 
+*::-webkit-scrollbar
+{
+    width: 8px;
+}
+
+*::-webkit-scrollbar-thumb{
+    background: #658E8E;
+    border-radius: 10px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
