@@ -10,7 +10,7 @@ export function Container({ children, className }: ContainerProps) {
   return (
     <section
       className={
-        clsx("max-w-[1200px] mx-auto px-[40px] flex flex-col ", className)
+        clsx("max-w-[1200px] flex-1 w-full mx-auto px-[40px] flex flex-col ", className)
       }
     >
       {children}

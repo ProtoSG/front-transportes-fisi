@@ -1,5 +1,9 @@
+import { Container } from "../../components";
+
 export function SeatSelection() {
   return (
-    <div>dsa</div>
+    <Container>
+
+    </Container>
   )
 }

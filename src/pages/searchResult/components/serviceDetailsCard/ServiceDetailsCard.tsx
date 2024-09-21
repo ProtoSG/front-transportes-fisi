@@ -1,4 +1,4 @@
-import { NewButton } from "../../../../../../components"
+import { NewButton } from "../../../../components"
 import { ArrowLargeIcon, BusIcon } from "@icons"
 import { DetailsTerminal } from "./components"
 

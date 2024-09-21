@@ -1,13 +1,16 @@
-import { Footer } from "../../components";
-import HeaderSearchResult from "./modules/header/HeaderSearchResult";
-import MainSearchResult from "./modules/main/MainSearchResult";
+import { Container } from "../../components";
+import { ServiceDetailsCard, TripInfoPanel } from "./components";
 
 export function SearchResult() {
   return (
-    <>
-      <HeaderSearchResult />
-      <MainSearchResult />
-      <Footer />
-    </>
+    <Container>
+      <section className="flex flex-col items-center gap-8 md:items-start md:flex-row">
+        <TripInfoPanel />
+        <section className="w-full gap-7 flex flex-col ">
+          <ServiceDetailsCard />
+          <ServiceDetailsCard />
+        </section>
+      </section>
+    </Container >
   )
 }
