@@ -1,39 +1,23 @@
-import { useState } from "react";
-import { ArrowLargeIcon, CalendarIcon, CaretDownIcon } from "../icons";
 import { InputSelect } from "./InputSelect";
+import { NewButton } from "./NewButton";
 
 export function FormSearch() {
-  const [inputType, setInputType] = useState('text');
-  const [active, setActive] = useState(true);
-
-  const handleDesactive = () => {
-    setInputType('date')
-    setActive(false)
-  }
-
-  const handleActive = () => {
-    setInputType('text')
-    setActive(true)
-  }
 
   return (
-    <div className="flex flex-col gap-3 w-full backdrop-blur-lg px-4 py-5 rounded-t-lg">
+    <div className="flex flex-col gap-3 backdrop-blur-lg px-4 py-5 rounded-t-lg">
       <p className="font-semibold text-lg">Busca tu próximo destino</p>
-      <form className="w-full flex gap-3">
-        <InputSelect />
-        <InputSelect />
-        <div className="border-2 px-2 border-primary-50/50 rounded-lg flex w-full items-center">
+      <form className="w-full flex flex-col lg:flex-row gap-3">
+        <fieldset className="flex flex-col w-full sm:flex-row gap-3">
+          <InputSelect />
+          <InputSelect />
+        </fieldset>
+        <fieldset className="flex flex-col sm:flex-row w-full gap-3">
           <input
-            type={inputType}
-            onFocus={handleDesactive}
-            onBlur={handleActive}
-            placeholder="Fecha de Ida"
-            className="bg-transparent w-full focus:outline-none "
+            type="date"
+            className="bg-transparent text-sm lg:text-base w-full focus:outline-none border-2 p-2 border-primary-50/50 rounded-lg"
           />
-          {active && (
-            <CalendarIcon />
-          )}
-        </div>
+          <NewButton>Buscar</NewButton>
+        </fieldset>
       </form>
     </div>
   )

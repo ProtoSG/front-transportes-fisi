@@ -39,9 +39,9 @@ export function InputSelect() {
         className="flex justify-between items-center p-2 border-2 rounded-lg border-primary-50/50 cursor-pointer"
         onClick={handleActive}
       >
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <MapPinIcon />
-          {selected.label}
+          <span className="text-sm lg:text-base">{selected.label}</span>
         </div>
         <CaretDownIcon />
       </div>

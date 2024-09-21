@@ -11,6 +11,12 @@ body {
   background: #f3f3f3;
 }
 
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
 *::-webkit-scrollbar
 {
     width: 8px;
@@ -24,3 +30,18 @@ body {
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translate(calc(-260px * 5 - 0.5rem * 10 ))
+  }
+}
+
+.animate-scroll {
+  animation: scroll 13s linear infinite;
+}
+
+
