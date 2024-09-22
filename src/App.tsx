@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom"
 import { Home, Layaout, PassengerDetails, SearchResult, SeatSelection } from "./pages"
 
 function App() {
-
   return (
     <Routes>
       <Route path='/' element={<Home />} />

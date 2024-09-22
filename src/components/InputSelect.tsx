@@ -16,7 +16,11 @@ const options: OptProps[] = [
   { value: 'cusco', label: 'Cusco' },
 ]
 
-export function InputSelect() {
+type InputSelectProps = {
+  setValue: (value: string) => void
+}
+
+export function InputSelect({ setValue }: InputSelectProps) {
   const [active, setActive] = useState<boolean>(false)
   const [selected, setSelected] = useState<OptProps>(options[0])
   const [search, setSearch] = useState<string>("")
@@ -27,6 +31,7 @@ export function InputSelect() {
 
   const handleChangeSelected = (opt: OptProps) => {
     setSelected(opt)
+    setValue(opt.value)
     setActive(false)
   }
 

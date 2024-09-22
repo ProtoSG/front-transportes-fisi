@@ -2,7 +2,7 @@ import { Container } from "../../components";
 
 export function SeatSelection() {
   return (
-    <Container>
+    <Container className="flex-1">
 
     </Container>
   )
