@@ -1,4 +1,5 @@
 export * from "./ArrowLargeIcon"
+export * from "./UserIcon"
 export * from "./CaretDownIcon"
 export * from "./MapPinIcon"
 export * from "./CalendarIcon"

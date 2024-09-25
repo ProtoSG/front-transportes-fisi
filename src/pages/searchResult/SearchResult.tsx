@@ -1,6 +1,6 @@
 import { Container } from "../../components";
-import { ServiceDetailsCard, TripInfoPanel } from "./components";
-import { viaje } from "../../data/data";
+import { TripInfoPanel } from "../../components/TripInfoPanel";
+import { ServiceDetailsCard } from "./components";
 
 export function SearchResult() {
 

@@ -15,6 +15,9 @@ interface DataTripInfoProps {
 
   ubicacion: string;
   setUbicacion: (ubicacion: string) => void;
+
+  tipoServicio: string;
+  setTipoServicio: (tipo: string) => void;
 }
 
 export const useDataTripInfo = create<DataTripInfoProps>((set) => ({
@@ -27,9 +30,12 @@ export const useDataTripInfo = create<DataTripInfoProps>((set) => ({
   fechaSalida: "",
   setFechaSalida: (fecha: string) => set({ fechaSalida: fecha }),
 
-  hora: "",
+  hora: "test",
   setHoraHora: (hora: string) => set({ hora: hora }),
 
-  ubicacion: "",
+  ubicacion: "test",
   setUbicacion: (ubicacion: string) => set({ ubicacion: ubicacion }),
+
+  tipoServicio: "Ejecutivo VIP",
+  setTipoServicio: (tipo: string) => set({ tipoServicio: tipo }),
 }))
