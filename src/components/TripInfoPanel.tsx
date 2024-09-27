@@ -1,9 +1,26 @@
 import { ArrowLargeIcon, CalendarIcon } from "@icons";
 import { useDataTripInfo } from "../hooks/useDataTripInfo";
 
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  };
+
+  const formattedDate = new Intl.DateTimeFormat('es-ES', options).format(date);
+
+  return formattedDate;
+};
+
+
 export function TripInfoPanel() {
 
-  const { ciudadOrigen, ciudadDestino, hora, ubicacion, tipoServicio } = useDataTripInfo();
+  const { ciudadOrigen, ciudadDestino, hora, ubicacion, tipoServicio, fechaSalida } = useDataTripInfo();
+
+  const date = formatDate(fechaSalida);
 
   return (
     <article className="bg-primary-100 rounded-xl px-8 py-5 flex flex-col gap-4">
@@ -20,7 +37,7 @@ export function TripInfoPanel() {
         </div>
         <div className="flex gap-2 items-center justify-center ">
           <CalendarIcon className="text-primary-500" />
-          <p className="text-xs text-nowrap">Jueves 19 de Septiembre</p>
+          <p className="text-xs text-nowrap capitalize">{date}</p>
         </div>
       </main>
       {

@@ -1,8 +1,9 @@
 import { MapPinIcon, CaretDownIcon } from "@icons"
 import { useState } from "react"
-import { Control, Controller } from "react-hook-form"
+import { Control, Controller, FieldError } from "react-hook-form"
 import { SearchFormData } from "../model/formSearch.mode"
 import { DropdownSearch } from "./DropdownSearch"
+import { ErrorInput } from "./ErrorInput"
 
 type OptProps = {
   value: string,
@@ -18,9 +19,10 @@ const options: OptProps[] = [
 type InputSelectProps = {
   name: keyof SearchFormData
   control: Control<SearchFormData>
+  error?: FieldError
 }
 
-export function InputSelect({ name, control }: InputSelectProps) {
+export function InputSelect({ name, control, error }: InputSelectProps) {
   const [active, setActive] = useState<boolean>(false)
 
   const handleActive = () => {
@@ -54,6 +56,7 @@ export function InputSelect({ name, control }: InputSelectProps) {
                     options={options}
                   />
                 )}
+                <ErrorInput error={error} />
               </>
             )}
           />
