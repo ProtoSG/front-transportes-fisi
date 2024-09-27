@@ -11,7 +11,7 @@ export function Layaout() {
         </Container>
       </ContainerBgHeader>
       <Container>
-        <ProgressSteps currentStep={2} />
+        <ProgressSteps />
       </Container>
       <Outlet />
       <Footer />
