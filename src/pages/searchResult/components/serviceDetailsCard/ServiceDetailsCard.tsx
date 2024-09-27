@@ -2,8 +2,22 @@ import { NewButton } from "../../../../components"
 import { ArrowLargeIcon, BusIcon } from "@icons"
 import { DetailsTerminal } from "./components"
 import { viaje } from "../../../../data/data";
+import { useDataTripInfo } from "../../../../hooks/useDataTripInfo";
+import { useNavigate } from "react-router-dom";
 
 export function ServiceDetailsCard() {
+
+  const { setHora, setUbicacion, setTipoServicio } = useDataTripInfo()
+
+  const navigate = useNavigate()
+
+  const handleOnClick = () => {
+    setHora(viaje.hora_embarque)
+    setUbicacion(viaje.terminal_desembarque.ubicacion)
+    setTipoServicio(viaje.servicio.nombre)
+    navigate("/seat-selection")
+  }
+
   return (
     <div className="w-full border-2 border-primary-500 rounded-lg flex">
       <article className="px-2 py-4 w-full">
@@ -41,7 +55,7 @@ export function ServiceDetailsCard() {
             <span className="text-primary-700 font-bold text-2xl">.00</span>
           </div>
         </div>
-        <NewButton>Elegir</NewButton>
+        <NewButton onClick={handleOnClick}>Elegir</NewButton>
       </div>
     </div>
   )

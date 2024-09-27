@@ -1,5 +1,7 @@
 import { ArrowLargeIcon, CalendarIcon } from "@icons";
 import { useDataTripInfo } from "../hooks/useDataTripInfo";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -15,10 +17,16 @@ const formatDate = (dateString: string): string => {
   return formattedDate;
 };
 
-
 export function TripInfoPanel() {
-
   const { ciudadOrigen, ciudadDestino, hora, ubicacion, tipoServicio, fechaSalida } = useDataTripInfo();
+  const [active, setActive] = useState(false);
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname !== "/search-results") setActive(true);
+    else setActive(false);
+  }, [pathname])
 
   const date = formatDate(fechaSalida);
 
@@ -26,7 +34,7 @@ export function TripInfoPanel() {
     <article className="bg-primary-100 rounded-xl px-8 py-5 flex flex-col gap-4">
       <main className="flex flex-col gap-2">
         {
-          tipoServicio && (
+          active && tipoServicio && (
             <h3 className="text-center font-semibold text-primary-600">{tipoServicio}</h3>
           )
         }
@@ -41,14 +49,14 @@ export function TripInfoPanel() {
         </div>
       </main>
       {
-        hora && ubicacion && (
+        active && hora && ubicacion && (
           <>
             <hr className="border-primary-800 border-dotted" />
             <footer className="flex gap-4 items-center ">
-              <span className="text-sm font-bold text-primary-600 text-nowrap">07:05 h</span>
+              <span className="text-sm font-bold text-primary-600 text-nowrap">{hora}</span>
               <div className="flex flex-col text-sm leading-3">
                 <small>Embarque</small>
-                <small>Av. Nicolás Arriola 780, La Victoria - Lima</small>
+                <small>{ubicacion}</small>
               </div>
             </footer>
           </>

@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { Container } from "../../components";
 import { TripInfoPanel } from "../../components/TripInfoPanel";
+import { useDataTripInfo } from "../../hooks/useDataTripInfo";
 import { ServiceDetailsCard } from "./components";
 
 export function SearchResult() {
+
+  const { removeUbicacion, removeHora, removeTipoServicio } = useDataTripInfo();
 
   return (
     <Container className="flex-1">
