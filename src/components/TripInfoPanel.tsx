@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const formatDate = (dateString: string): string => {
+  if (!dateString) return "";
   const date = new Date(dateString);
 
   const options: Intl.DateTimeFormatOptions = {

@@ -1,17 +1,5 @@
 import { create } from "zustand";
-
-const loadFromLocalStorage = <T>(key: string, defaultValue: T) => {
-  const storageValue = localStorage.getItem(key);
-  return storageValue ? JSON.parse(storageValue) : defaultValue;
-}
-
-const saveToLocalStorage = (key: string, value: any) => {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-const removeFromLocalStorage = (key: string) => {
-  localStorage.removeItem(key);
-}
+import { loadFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from "../services/localStorageActions";
 
 interface DataTripInfoProps {
   ciudadOrigen: string;
