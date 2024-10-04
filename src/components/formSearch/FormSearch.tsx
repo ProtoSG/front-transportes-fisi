@@ -22,6 +22,7 @@ export function FormSearch() {
   const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<SearchFormData> = (data) => {
+    console.log(data)
     setCiudadOrigen(data.ciudadOrigen)
     setCiudadDestino(data.ciudadDestino)
     setFechaSalida(data.date)

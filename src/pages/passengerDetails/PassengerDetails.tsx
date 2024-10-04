@@ -1,24 +1,46 @@
-import { useState } from "react";
 import { Container, NewButton } from "../../components";
 import { TripInfoPanel } from "../../components/TripInfoPanel";
 import { useSeatsSelected } from "../../hooks/useSeatsSelected";
 import { FormPassenger, InputField } from "./components";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { FormPassengerData, schemaFormPassenger } from "./model/formPassenger.model";
 
 export function PassengerDetails() {
   const { seats } = useSeatsSelected();
 
+  const { control, handleSubmit, formState: { errors } } = useForm<FormPassengerData>({
+    resolver: zodResolver(schemaFormPassenger),
+    defaultValues: {
+      pasajeros: seats.map(() => ({
+        documento: '',
+        nombres: '',
+        apellidos: '',
+        fecha_nacimiento: '',
+        sexo: 'femenino',
+      })),
+      email: '',
+      phone: '',
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormPassengerData> = (data) => {
+    console.log(data);
+  }
 
   return (
     <Container className="flex-1">
       <section className="flex flex-col items-center gap-8 md:items-start md:flex-row">
         <TripInfoPanel />
-        <section className="w-full gap-7 flex flex-col ">
+        <form className="w-full gap-7 flex flex-col" onSubmit={handleSubmit(onSubmit)}>
           {
             seats.map((seat, index) => (
               <FormPassenger
                 key={index}
                 index={index}
                 number={seat.numero}
+                control={control}
+                error={errors}
               />
             ))
           }
@@ -29,15 +51,26 @@ export function PassengerDetails() {
                 Sus boletos y el recibo se enviarán a la dirección del correo electrónico a continuación.
               </p>
             </div>
-            <form className="flex flex-col gap-5 text-white" onSubmit={() => { }}>
-              <fieldset className="flex gap-5">
-                <InputField placeholder="Correo electrónico" name="email" />
-                <InputField placeholder="Teléfono" name="phone" />
+            <div className="flex flex-col gap-5 text-white" onSubmit={() => { }}>
+              <fieldset className="flex gap-5 text-black relative">
+                <InputField
+                  type="email"
+                  placeholder="Correo electrónico"
+                  name="email"
+                  control={control}
+                  error={errors.email}
+                />
+                <InputField
+                  placeholder="Teléfono"
+                  name="phone"
+                  control={control}
+                  error={errors.phone}
+                />
               </fieldset>
               <NewButton type="submit">Continuar con el pago</NewButton>
-            </form>
+            </div>
           </div>
-        </section>
+        </form>
       </section>
     </Container >
   )

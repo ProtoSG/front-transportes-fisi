@@ -13,7 +13,7 @@ export function ListSeatSelected({ seats, piso }: ListSeatSelectedProps) {
         <small>Asiento(s): </small>
         {
           seats.map((seat) => (
-            <small className="font-bold px-[2px]">{String(seat.numero).padStart(2, '0')}</small>
+            <small key={seat.id_asiento} className="font-bold px-[2px]">{String(seat.numero).padStart(2, '0')}</small>
           ))
         }
       </div>

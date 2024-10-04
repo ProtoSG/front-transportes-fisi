@@ -1,12 +1,18 @@
+import { Control, FieldErrors } from "react-hook-form";
 import { InputField } from "./InputField";
 import { InputRadio } from "./InputRadio";
+import { FormPassengerData } from "../model/formPassenger.model";
+
 
 interface FormPassengerProps {
   index: number;
   number: number;
+  control: Control<FormPassengerData>;
+  error: FieldErrors<FormPassengerData>;
 }
 
-export function FormPassenger({ index, number }: FormPassengerProps) {
+export function FormPassenger({ index, number, control, error }: FormPassengerProps) {
+
   return (
     <>
       <div className="px-4 py-3 flex flex-col gap-4">
@@ -17,32 +23,50 @@ export function FormPassenger({ index, number }: FormPassengerProps) {
             <span className="text-primary-800">{number}</span>
           </p>
         </div>
-        <form className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <InputField
-            name="documento"
+            name={`pasajeros.${index}.documento`}
             placeholder="N° de Documento"
+            control={control}
+            error={error.pasajeros?.[index]?.documento}
           />
           <fieldset className="flex gap-5">
             <InputField
-              name="nombres"
+              name={`pasajeros.${index}.nombres`}
               placeholder="Nombres"
+              control={control}
+              error={error.pasajeros?.[index]?.nombres}
             />
             <InputField
-              name="apellidos"
+              name={`pasajeros.${index}.apellidos`}
               placeholder="Apellidos"
+              control={control}
+              error={error.pasajeros?.[index]?.apellidos}
             />
           </fieldset>
           <fieldset className="flex gap-5">
             <InputField
               type="date"
-              name="fecha_nacimiento"
+              name={`pasajeros.${index}.fecha_nacimiento`}
+              control={control}
+              error={error.pasajeros?.[index]?.fecha_nacimiento}
             />
             <fieldset className="flex w-full p-2 border-2 border-transparent">
-              <InputRadio value="femenino" label="Femenino" checked />
-              <InputRadio value="masculino" label="Masculino" />
+              <InputRadio
+                value="femenino"
+                label="Femenino"
+                name={`pasajeros.${index}.sexo`}
+                control={control}
+              />
+              <InputRadio
+                value="masculino"
+                label="Masculino"
+                name={`pasajeros.${index}.sexo`}
+                control={control}
+              />
             </fieldset>
           </fieldset>
-        </form>
+        </div>
       </div>
       <hr className="border-primary-200" />
     </>
