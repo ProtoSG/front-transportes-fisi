@@ -1,3 +1,5 @@
 export * from './FormPassenger'
 export * from './InputField'
 export * from './InputRadio'
+export * from './ConfirmData'
+export * from './CheckQuestion'
