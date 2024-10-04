@@ -1,16 +1,15 @@
-import { Control, Controller, FieldError } from "react-hook-form";
+import { Control, Controller, FieldError, FieldValues, Path } from "react-hook-form";
 import { ErrorInput } from "../../../components/formSearch/components/ErrorInput";
-import { FormPassengerData, PassengerData } from "../model/formPassenger.model";
 
-interface InputFieldProps {
+interface InputFieldProps<T extends FieldValues> {
   type?: string;
   placeholder?: string;
-  name: `pasajeros.${number}.${keyof PassengerData}` | "email" | "phone";
-  control: Control<FormPassengerData>;
+  name: Path<T>;
+  control: Control<T>;
   error?: FieldError
 }
 
-export function InputField({ type, placeholder, name, control, error }: InputFieldProps) {
+export function InputField<T extends FieldValues>({ type, placeholder, name, control, error }: InputFieldProps<T>) {
   return (
     <Controller
       control={control}

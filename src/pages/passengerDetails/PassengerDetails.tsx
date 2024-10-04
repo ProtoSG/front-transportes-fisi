@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export function PassengerDetails() {
   const { seats } = useSeatsSelected();
-  const [nextStep, setNexStep] = useState(true);
+  const [nextStep, setNexStep] = useState(false);
 
   const { control, handleSubmit, formState: { errors } } = useForm<FormPassengerData>({
     resolver: zodResolver(schemaFormPassenger),
@@ -28,10 +28,8 @@ export function PassengerDetails() {
 
   const onSubmit: SubmitHandler<FormPassengerData> = (data) => {
     console.log(data);
-  }
-
-  const handleNextStep = () => {
     setNexStep(true);
+
   }
 
   return (
@@ -83,7 +81,6 @@ export function PassengerDetails() {
             </form>
           )
         }
-        <NewButton className="absolute bottom-0" onClick={handleNextStep}>Siguiente TEST</NewButton>
       </section>
     </Container >
   )
