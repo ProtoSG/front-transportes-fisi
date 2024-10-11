@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FormPassengerData, schemaFormPassenger } from "./model/formPassenger.model";
 import { useState } from "react";
+import { MailIcon, PhoneIcon } from "../../icons";
 
 export function PassengerDetails() {
   const { seats } = useSeatsSelected();
@@ -68,12 +69,14 @@ export function PassengerDetails() {
                       name="email"
                       control={control}
                       error={errors.email}
+                      icon=<MailIcon className="text-zinc-400" />
                     />
                     <InputField
                       placeholder="Teléfono"
                       name="phone"
                       control={control}
                       error={errors.phone}
+                      icon=<PhoneIcon className="text-zinc-400" />
                     />
                   </fieldset>
                   <NewButton type="submit">Continuar con el pago</NewButton>

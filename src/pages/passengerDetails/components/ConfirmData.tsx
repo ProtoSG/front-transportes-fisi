@@ -17,6 +17,7 @@ export function ConfirmData() {
         <div className="flex flex-col gap-4">
           <CheckQuestion
             question="¿Tienes cupón de descuento?"
+            type="input"
           />
           <CheckQuestion
             question="¿Desea factura?"

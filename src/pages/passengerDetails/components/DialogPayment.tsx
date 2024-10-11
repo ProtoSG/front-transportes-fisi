@@ -1,6 +1,5 @@
-import { NewButton } from "../../../components";
 import { CardIcon, CloseIcon, TicketIcon } from "../../../icons";
-import { FormPayment } from "./FormPayment";
+import { FormPayment } from "./formPayment/FormPayment";
 import { PaymentMethod } from "./PaymentMethod";
 
 export function DialogPayment() {
@@ -15,7 +14,7 @@ export function DialogPayment() {
   return (
     <dialog
       id="dialog-payment"
-      className="m-auto  gap-12 px-12 relative py-12 rounded-lg focus:outline-none backdrop:backdrop-blur-xl"
+      className="m-auto  gap-12 px-12 drop-shadow-2xl relative py-12 rounded-lg focus:outline-none backdrop:backdrop-blur-xl"
     >
       <div className="flex flex-col gap-12">
         <span

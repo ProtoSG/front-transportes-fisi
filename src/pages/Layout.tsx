@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Container, ContainerBgHeader, Footer, FormSearch, Header, ProgressSteps } from "../components";
 import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
 
 export function Layaout() {
   const [active, setActive] = useState<boolean>(false);
@@ -27,6 +28,7 @@ export function Layaout() {
       </Container>
       <Outlet />
       <Footer />
+      <Toaster richColors />
     </>
   )
 }

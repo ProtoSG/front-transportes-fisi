@@ -5,6 +5,7 @@ import { FormPassengerData } from "../model/formPassenger.model";
 import { NewButton, SkeletonInput } from "../../../components";
 import { useDataDni } from "../hooks/useDataDni";
 import { useEffect } from "react";
+import { IdIcon, UserOutlineIcon } from "../../../icons";
 
 interface FormPassengerProps {
   index: number;
@@ -52,6 +53,7 @@ export function FormPassenger({ index, number, control, error, setValue }: FormP
                 placeholder="N° de Documento"
                 control={control}
                 error={error.pasajeros?.[index]?.documento}
+                icon=<IdIcon className="text-zinc-400" />
               />
             </div>
             <NewButton disabled={loading} type="button" className={`text-white ${loading ? "bg-primary-600" : ""}`}
@@ -71,6 +73,7 @@ export function FormPassenger({ index, number, control, error, setValue }: FormP
                 control={control}
                 error={error.pasajeros?.[index]?.nombres}
                 readonly
+                icon=<UserOutlineIcon className="text-zinc-400" />
               />
             }
             {loading
@@ -81,6 +84,7 @@ export function FormPassenger({ index, number, control, error, setValue }: FormP
                 control={control}
                 error={error.pasajeros?.[index]?.apellidos}
                 readonly
+                icon=<UserOutlineIcon className="text-zinc-400" />
               />
             }
           </fieldset>

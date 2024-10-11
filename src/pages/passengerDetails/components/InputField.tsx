@@ -8,26 +8,32 @@ interface InputFieldProps<T extends FieldValues> {
   control: Control<T>;
   error?: FieldError;
   readonly?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  icon?: React.ReactNode;
 }
 
-export function InputField<T extends FieldValues>({ type, placeholder, name, control, error, readonly }: InputFieldProps<T>) {
+export function InputField<T extends FieldValues>({ icon, type, placeholder, name, control, error, readonly, onChange }: InputFieldProps<T>) {
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <div className="relative w-full">
-          <input
-            {...field}
-            type={type}
-            placeholder={placeholder}
-            className={`read-only:bg-gray-200 w-full p-2  border-[1px] border-primary-800 rounded-md bg-transparent focus:outline-none ${type === "date" ? "form-passenger-date" : ""}`}
-            readOnly={readonly}
-            value={field.value}
-          />
-          <ErrorInput error={error} />
-        </div>
-      )}
-    />
+    <div className={`flex gap-4 items-center  w-full px-2  border-[1px] border-primary-800 rounded-md ${readonly ? "bg-gray-200" : "bg-white"}`}>
+      {icon}
+      <Controller
+        control={control}
+        name={name}
+        render={({ field }) => (
+          <div className="relative w-full">
+            <input
+              {...field}
+              type={type}
+              placeholder={placeholder}
+              className={`py-2 read-only:bg-gray-200 w-full bg-transparent focus:outline-none ${type === "date" ? "form-passenger-date" : ""}`}
+              readOnly={readonly}
+              value={field.value}
+              onChange={onChange ?? field.onChange}
+            />
+            <ErrorInput error={error} />
+          </div>
+        )}
+      />
+    </div>
   )
 }
