@@ -1,14 +1,14 @@
-import { Seat } from "../models/SeatModel";
+import { Asiento } from "../models/asiento.model";
 import { SeatNotSelected } from "./SeatNotSelected";
 import { SeatSelected } from "./SeatSelected";
 
-export function RenderSeats({ asientos }: { asientos: Seat[] }) {
+export function RenderSeats({ asientos }: { asientos: Asiento[] }) {
   return asientos.map((asiento) => (
-    asiento.ocupado ? (
-      <SeatSelected key={asiento.id_asiento} />
+    asiento.disponibilidad === 0 ? (
+      <SeatSelected key={asiento.idAsiento} />
     ) : (
       <SeatNotSelected
-        key={asiento.id_asiento}
+        key={asiento.idAsiento}
         seat={asiento}
       />
     )

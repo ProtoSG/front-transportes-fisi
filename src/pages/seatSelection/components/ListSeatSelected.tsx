@@ -1,7 +1,7 @@
-import { Seat } from "../models/SeatModel"
+import { Asiento } from "../models/asiento.model"
 
 interface ListSeatSelectedProps {
-  seats: Seat[],
+  seats: Asiento[],
   piso: number
 }
 
@@ -13,7 +13,7 @@ export function ListSeatSelected({ seats, piso }: ListSeatSelectedProps) {
         <small>Asiento(s): </small>
         {
           seats.map((seat) => (
-            <small key={seat.id_asiento} className="font-bold px-[2px]">{String(seat.numero).padStart(2, '0')}</small>
+            <small key={seat.idAsiento} className="font-bold px-[2px]">{String(seat.numeroAsiento).padStart(2, '0')}</small>
           ))
         }
       </div>

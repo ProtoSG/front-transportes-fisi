@@ -1,66 +1,22 @@
-import { Seat } from "../models/SeatModel";
+import { useViajeSelected } from "../../../hooks/useViajeSelected";
+import { useAsientos } from "../hooks/useAsientos";
 import { RenderSeats } from "./RenderSeats";
 
-const asientos: Seat[] = [
-  {
-    id_asiento: 1,
-    nivel: 1,
-    numero: 1,
-    id_bus: 1,
-    ocupado: false,
-    precio: 60
-  },
-  {
-    id_asiento: 2,
-    nivel: 1,
-    numero: 2,
-    id_bus: 2,
-    ocupado: false,
-    precio: 60
-  },
-  {
-    id_asiento: 3,
-    nivel: 1,
-    numero: 3,
-    id_bus: 3,
-    ocupado: false,
-    precio: 80
-  },
-  {
-    id_asiento: 4,
-    nivel: 1,
-    numero: 4,
-    id_bus: 4,
-    ocupado: false,
-    precio: 60
-  },
-  {
-    id_asiento: 5,
-    nivel: 1,
-    numero: 5,
-    id_bus: 5,
-    ocupado: false,
-    precio: 60
-  },
-  {
-    id_asiento: 6,
-    nivel: 1,
-    numero: 6,
-    id_bus: 5,
-    ocupado: false,
-    precio: 60
-  }
-]
-
-const asientosPiso1Duplicado: Seat[] = [...asientos, ...asientos]
-
 export function SeatSelector() {
+  const { viaje } = useViajeSelected()
 
-  const piso1AsientosIzq = asientosPiso1Duplicado.filter((_, index) => (index + 1) % 3 !== 0)
-  const piso1AsientosDer = asientosPiso1Duplicado.filter((_, index) => (index + 1) % 3 === 0);
+  if (!viaje) return null
 
-  const piso2AsientosIzq = asientosPiso1Duplicado.filter((_, index) => !((index + 2) % 4 === 0 || (index + 1) % 4 === 0));
-  const piso2AsientosDer = asientosPiso1Duplicado.filter((_, index) => (index + 2) % 4 === 0 || (index + 1) % 4 === 0);
+  const { asientos } = useAsientos({ id: viaje.bus.idBus })
+
+  const piso1Asientos = asientos.filter(asiento => asiento.piso === 1)
+  const piso2Asientos = asientos.filter(asiento => asiento.piso === 2)
+
+  const piso1AsientosIzq = piso1Asientos.filter((_, index) => (index + 1) % 3 !== 0)
+  const piso1AsientosDer = piso1Asientos.filter((_, index) => (index + 1) % 3 === 0);
+
+  const piso2AsientosIzq = piso2Asientos.filter((_, index) => !((index + 2) % 4 === 0 || (index + 1) % 4 === 0));
+  const piso2AsientosDer = piso2Asientos.filter((_, index) => (index + 2) % 4 === 0 || (index + 1) % 4 === 0);
 
   return (
     <section className="w-full flex justify-center">

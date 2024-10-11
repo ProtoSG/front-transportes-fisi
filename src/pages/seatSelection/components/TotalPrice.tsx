@@ -10,8 +10,8 @@ export function TotalPrice() {
   const { seats, cleanSeats } = useSeatsSelected()
   const { total, cleanTotal } = usePriceTotal()
 
-  const seats1piso = seats.filter((seat) => seat.nivel === 1)
-  const seats2piso = seats.filter((seat) => seat.nivel === 2)
+  const seats1piso = seats.filter((seat) => seat.piso === 1)
+  const seats2piso = seats.filter((seat) => seat.piso === 2)
 
   const navigate = useNavigate()
 
