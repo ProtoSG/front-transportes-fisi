@@ -28,7 +28,7 @@ export function DropdownSearch({ setActive, field, options }: DropdownSearchProp
       {searchOptions.map((opt, index) => (
         <span
           key={index}
-          className="hover:bg-primary-400 py-2 px-4 transition-colors hover:cursor-pointer"
+          className="hover:bg-primary-400 py-2 px-4 transition-colors hover:cursor-pointer capitalize"
           onClick={() => {
             field.onChange(opt.value);
             setActive(false);

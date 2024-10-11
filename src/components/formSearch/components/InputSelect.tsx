@@ -4,17 +4,12 @@ import { Control, Controller, FieldError } from "react-hook-form"
 import { SearchFormData } from "../model/formSearch.mode"
 import { DropdownSearch } from "./DropdownSearch"
 import { ErrorInput } from "./ErrorInput"
+import { useCiudades } from "../hooks/useCiudades"
 
 type OptProps = {
   value: string,
   label: string,
 }
-
-const options: OptProps[] = [
-  { value: 'lima', label: 'Lima' },
-  { value: 'peru', label: 'Perú' },
-  { value: 'cusco', label: 'Cusco' },
-]
 
 type InputSelectProps = {
   name: keyof SearchFormData
@@ -24,6 +19,12 @@ type InputSelectProps = {
 
 export function InputSelect({ name, control, error }: InputSelectProps) {
   const [active, setActive] = useState<boolean>(false)
+  const { ciudades } = useCiudades()
+
+  const options: OptProps[] = ciudades.map(ciudad => ({
+    value: ciudad.nombre.toLowerCase(),
+    label: ciudad.nombre.toLowerCase()
+  }))
 
   const handleActive = () => {
     setActive(!active)

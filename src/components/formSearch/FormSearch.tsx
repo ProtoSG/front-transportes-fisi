@@ -26,7 +26,7 @@ export function FormSearch() {
     setCiudadOrigen(data.ciudadOrigen)
     setCiudadDestino(data.ciudadDestino)
     setFechaSalida(data.date)
-    navigate("/search-results")
+    navigate("/search-results?origen=" + data.ciudadOrigen + "&destino=" + data.ciudadDestino + "&fecha=" + data.date)
   }
 
   return (
