@@ -11,7 +11,7 @@ export function PassengerDetails() {
   const { seats } = useSeatsSelected();
   const [nextStep, setNexStep] = useState(false);
 
-  const { control, handleSubmit, formState: { errors } } = useForm<FormPassengerData>({
+  const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormPassengerData>({
     resolver: zodResolver(schemaFormPassenger),
     defaultValues: {
       pasajeros: seats.map(() => ({
@@ -46,8 +46,9 @@ export function PassengerDetails() {
                   <FormPassenger
                     key={index}
                     index={index}
-                    number={seat.numero}
+                    number={seat.numeroAsiento}
                     control={control}
+                    setValue={setValue}
                     error={errors}
                   />
                 ))

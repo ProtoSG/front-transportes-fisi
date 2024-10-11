@@ -6,10 +6,11 @@ interface InputFieldProps<T extends FieldValues> {
   placeholder?: string;
   name: Path<T>;
   control: Control<T>;
-  error?: FieldError
+  error?: FieldError;
+  readonly?: boolean;
 }
 
-export function InputField<T extends FieldValues>({ type, placeholder, name, control, error }: InputFieldProps<T>) {
+export function InputField<T extends FieldValues>({ type, placeholder, name, control, error, readonly }: InputFieldProps<T>) {
   return (
     <Controller
       control={control}
@@ -20,8 +21,9 @@ export function InputField<T extends FieldValues>({ type, placeholder, name, con
             {...field}
             type={type}
             placeholder={placeholder}
-            className={`w-full p-2  border-[1px] border-primary-800 rounded-md bg-transparent ${type === "date" ? "form-passenger-date" : ""}`}
-            value={field.value || ""}
+            className={`read-only:bg-gray-200 w-full p-2  border-[1px] border-primary-800 rounded-md bg-transparent focus:outline-none ${type === "date" ? "form-passenger-date" : ""}`}
+            readOnly={readonly}
+            value={field.value}
           />
           <ErrorInput error={error} />
         </div>

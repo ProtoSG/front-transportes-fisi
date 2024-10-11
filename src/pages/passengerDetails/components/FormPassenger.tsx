@@ -1,17 +1,38 @@
-import { Control, FieldErrors } from "react-hook-form";
+import { Control, FieldErrors, UseFormSetValue, useWatch } from "react-hook-form";
 import { InputField } from "./InputField";
 import { InputRadio } from "./InputRadio";
 import { FormPassengerData } from "../model/formPassenger.model";
-
+import { NewButton, SkeletonInput } from "../../../components";
+import { useDataDni } from "../hooks/useDataDni";
+import { useEffect } from "react";
 
 interface FormPassengerProps {
   index: number;
   number: number;
   control: Control<FormPassengerData>;
   error: FieldErrors<FormPassengerData>;
+  setValue?: UseFormSetValue<FormPassengerData>;
 }
 
-export function FormPassenger({ index, number, control, error }: FormPassengerProps) {
+export function FormPassenger({ index, number, control, error, setValue }: FormPassengerProps) {
+
+  const dni = useWatch({
+    control,
+    name: `pasajeros.${index}.documento`,
+  });
+
+  const { data, loading, getData } = useDataDni();
+
+  const handleBuscarDatos = async () => {
+    await getData(dni);
+  };
+
+  useEffect(() => {
+    if (data) {
+      setValue?.(`pasajeros.${index}.nombres`, data.nombres as string);
+      setValue?.(`pasajeros.${index}.apellidos`, data.apellidos as string);
+    }
+  }, [data]);
 
   return (
     <>
@@ -24,25 +45,44 @@ export function FormPassenger({ index, number, control, error }: FormPassengerPr
           </p>
         </div>
         <div className="flex flex-col gap-3">
-          <InputField
-            name={`pasajeros.${index}.documento`}
-            placeholder="N° de Documento"
-            control={control}
-            error={error.pasajeros?.[index]?.documento}
-          />
-          <fieldset className="flex gap-5">
-            <InputField
-              name={`pasajeros.${index}.nombres`}
-              placeholder="Nombres"
-              control={control}
-              error={error.pasajeros?.[index]?.nombres}
-            />
-            <InputField
-              name={`pasajeros.${index}.apellidos`}
-              placeholder="Apellidos"
-              control={control}
-              error={error.pasajeros?.[index]?.apellidos}
-            />
+          <fieldset className="grid grid-cols-2 gap-5 ">
+            <div className="">
+              <InputField
+                name={`pasajeros.${index}.documento`}
+                placeholder="N° de Documento"
+                control={control}
+                error={error.pasajeros?.[index]?.documento}
+              />
+            </div>
+            <NewButton disabled={loading} type="button" className={`text-white ${loading ? "bg-primary-600" : ""}`}
+              onClick={() => {
+                handleBuscarDatos();
+              }}
+            >
+              {loading ? "Buscando..." : "Buscar Datos"}
+            </NewButton>
+          </fieldset>
+          <fieldset className="flex gap-5 flex-col">
+            {loading
+              ? <SkeletonInput />
+              : <InputField
+                name={`pasajeros.${index}.nombres`}
+                placeholder="Nombres"
+                control={control}
+                error={error.pasajeros?.[index]?.nombres}
+                readonly
+              />
+            }
+            {loading
+              ? <SkeletonInput />
+              : <InputField
+                name={`pasajeros.${index}.apellidos`}
+                placeholder="Apellidos"
+                control={control}
+                error={error.pasajeros?.[index]?.apellidos}
+                readonly
+              />
+            }
           </fieldset>
           <fieldset className="flex gap-5">
             <InputField
