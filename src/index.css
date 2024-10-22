@@ -52,4 +52,12 @@ input[type="date"].form-passenger-date::-webkit-calendar-picker-indicator {
   animation: scroll 13s linear infinite;
 }
 
-
+#carrusel {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}

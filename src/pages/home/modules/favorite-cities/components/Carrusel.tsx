@@ -7,7 +7,7 @@ export function Carousel() {
   ]
 
   return (
-    <div className='overflow-hidden w-full'>
+    <div id="carrusel" className='overflow-hidden w-full'>
       <div className='flex whitespace-nowrap animate-scroll'>
         {
           images.map((img, index) => (
