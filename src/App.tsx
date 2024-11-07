@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { Home, Layaout, PassengerDetails, SearchResult, SeatSelection } from "./pages"
+import { Admin, Home, Layaout, Login, PassengerDetails, SearchResult, SeatSelection } from "./pages"
 
 function App() {
   return (
@@ -10,7 +10,9 @@ function App() {
         <Route path='/seat-selection' element={<SeatSelection />} />
         <Route path='/passenger-details' element={<PassengerDetails />} />
       </Route>
-    </Routes>
+      <Route path='/login' element={<Login />} />
+      <Route path='/admin' element={<Admin />} />
+    </Routes >
   )
 }
 
