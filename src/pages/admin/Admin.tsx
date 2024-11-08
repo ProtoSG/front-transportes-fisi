@@ -1,13 +1,11 @@
-import logo from '../../assets/logo.png'
+import { Outlet } from "react-router-dom";
+import { NavAside } from "./components";
 
 export function Admin() {
   return (
-    <main className="bg-primary-900 h-dvh">
-      <div className='flex gap-7 justify-center items-center'>
-        <img src={logo} alt="logo" className="w-9" />
-        <h1 className='text-2xl font-bold'>Transportes FISI</h1>
-        <img src={logo} alt="logo" className="w-9" />
-      </div>
+    <main className="px-8 py-12 flex bg-primary-900 gap-28 h-dvh">
+      <NavAside />
+      <Outlet />
     </main>
   )
 }
