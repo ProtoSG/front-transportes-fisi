@@ -16,7 +16,10 @@ export function NewButton({ type, children, onClick, className, disabled }: NewB
       onClick={onClick}
       disabled={disabled}
       className={
-        clsx("w-full p-2 bg-primary-500 rounded-lg focus:outline-none hover:bg-primary-800 transition-colors", className)
+        clsx(
+          "w-full p-2 bg-primary-500 rounded-lg focus:outline-none hover:bg-primary-800 transition-colors",
+          className
+        )
       }
     >
       {children}
