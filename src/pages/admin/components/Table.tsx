@@ -13,7 +13,7 @@ createTheme('dark', {
     default: 'transparent',
   },
   divider: {
-    default: '#7DA3A3',
+    default: '#E5EDED',
   }
 })
 
