@@ -1,4 +1,4 @@
-import { BusIcon, LogoutIcon } from '../../../icons'
+import { BusIcon, LogoutIcon, UserOutlineIcon } from '../../../icons'
 import { ChairIcon } from '../../../icons/ChairIcon'
 import { DiscountIcon } from '../../../icons/DiscountIcon'
 import { DriverIcon } from '../../../icons/DriverIcon'
@@ -10,47 +10,51 @@ import { LinkItem } from './LinkItem'
 
 const links = [
   {
+    icon: <UserOutlineIcon className="text-white" />,
+    link: ""
+  },
+  {
     icon: <PlaneIcon className="text-white" />,
-    link: "programacion-viaje",
+    link: "/programacion-viaje",
   },
   {
     icon: <RouteIcon className="text-white" />,
-    link: "ruta"
+    link: "/ruta"
   },
   {
     icon: <BusIcon className="text-white" />,
-    link: "bus"
+    link: "/bus"
   },
   {
     icon: <HomeIcon className="text-white" />,
-    link: "terminal"
+    link: "/terminal"
   },
   {
     icon: <DiscountIcon className="text-white" />,
-    link: "descuento"
+    link: "/descuento"
   },
   {
     icon: <DriverIcon className="text-white" />,
-    link: "conductor"
+    link: "/conductor"
   },
   {
     icon: <ChairIcon className="text-white" />,
-    link: "asiento"
+    link: "/asiento"
   }
 ]
 
 export function NavAside() {
   return (
-    <aside className='flex flex-col h-full justify-between'>
+    <aside className='flex flex-col bg-primary-900 rounded-xl items-center px-2 py-4 h-full justify-between'>
       <div className='flex flex-col gap-20'>
         <img src={logo} alt="logo" className="w-16" />
         <nav>
-          <ul className='flex flex-col gap-4'>
+          <ul className='flex flex-col gap-4 items-center'>
             {
               links.map((link) => (
                 <li key={link.link}>
                   <LinkItem
-                    link={`/admin/${link.link}`}
+                    link={`/admin${link.link}`}
                     icon={link.icon}
                   />
                 </li>
