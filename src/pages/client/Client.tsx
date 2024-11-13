@@ -3,7 +3,7 @@ import { NavAside } from './components'
 
 export function Client() {
   return (
-    <main className="px-8 py-12 flex bg-primary-900 gap-28 h-dvh">
+    <main className="px-8 py-12 flex bg-primary-900 gap-28 h-dvh text-white">
       <NavAside />
       <Outlet />
     </main>
