@@ -4,9 +4,10 @@ import { CloseIcon } from "../../../icons"
 interface DialogAddEditProps {
   id: string
   children: ReactNode
+  title: string
 }
 
-export function DialogAddEdit({ id, children }: DialogAddEditProps) {
+export function DialogAddEdit({ id, children, title }: DialogAddEditProps) {
 
   const handleCloseDialog = () => {
     const dialog = document.getElementById(id) as HTMLDialogElement
@@ -16,7 +17,7 @@ export function DialogAddEdit({ id, children }: DialogAddEditProps) {
   return (
     <dialog
       id={id}
-      className="m-auto gap-12 px-12 drop-shadow-2xl relative py-12 rounded-lg bg-primary-800 text-white focus:outline-none backdrop:backdrop-blur-xl"
+      className="m-auto gap-12 px-12 drop-shadow-2xl relative py-12 rounded-lg bg-primary-800 text-white focus:outline-none backdrop:backdrop-blur-xl min-w-96"
     >
       <div className="flex flex-col gap-10">
         <span
@@ -25,7 +26,7 @@ export function DialogAddEdit({ id, children }: DialogAddEditProps) {
         >
           <CloseIcon className="text-white" />
         </span>
-        <span className="text-2xl font-semibold">Editar viaje programado</span>
+        <span className="text-2xl text-center font-semibold">{title}</span>
         {children}
       </div>
     </dialog>

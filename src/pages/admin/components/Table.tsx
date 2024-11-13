@@ -33,15 +33,17 @@ const customStyles = {
 
 export function Table({ columns, data }: TableProps) {
   return (
-    <DataTable
-      columns={columns}
-      data={data}
-      pagination
-      paginationPerPage={10}
-      selectableRows
-      onSelectedRowsChange={(state) => console.log(state.selectedRows)}
-      theme="dark"
-      customStyles={customStyles}
-    />
+    <div className="overflow-x-scroll w-full">
+      <DataTable
+        columns={columns}
+        data={data}
+        pagination
+        paginationPerPage={10}
+        selectableRows
+        onSelectedRowsChange={(state) => console.log(state.selectedRows)}
+        theme="dark"
+        customStyles={customStyles}
+      />
+    </div>
   )
 }
