@@ -5,7 +5,7 @@ import FavoriteCities from "./modules/favorite-cities/FavoriteCities";
 import Hero from "./modules/hero/Hero";
 import Payments from "./modules/payments/Payments";
 
-export function Home() {
+export default function Home() {
   const {
     removeTipoServicio,
     removeHora,

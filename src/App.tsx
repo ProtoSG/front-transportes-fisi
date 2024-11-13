@@ -1,13 +1,17 @@
 import { Route, Routes } from "react-router-dom"
-import { Admin, Home, Layaout, Login, PassengerDetails, SearchResult, SeatSelection, Client } from "./pages"
+import Home from "./pages/home/Home"
+import { PassengerDetails, SearchResult, SeatSelection, User } from "./pages/user"
+import Login from "./pages/login/Login"
+import { Admin } from "./pages/admin/Admin"
 import { Asiento, Bus, Conductor, Descuento, ProgramacionViaje, Ruta, Terminal } from "./pages/admin/pages"
 import { Boleto, MetodoPago, Perfil } from "./pages/client/pages"
+import { Client } from "./pages/client/Client"
 
 function App() {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path="" element={<Layaout />}>
+      <Route path="" element={<User />}>
         <Route path='/search-results' element={<SearchResult />} />
         <Route path='/seat-selection' element={<SeatSelection />} />
         <Route path='/passenger-details' element={<PassengerDetails />} />

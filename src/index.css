@@ -35,8 +35,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
 input[type="date"].form-passenger-date::-webkit-calendar-picker-indicator {
-  filter: none;
+  /*filter: none;*/
 }
 
 /* Animacion para el carrusel */

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { loadFromLocalStorage } from "../services/localStorageActions";
-import { Asiento } from "../pages/seatSelection/models/asiento.model";
+import { Asiento } from "../pages/user/seatSelection/models/asiento.model";
 
 
 interface SeatSelectedProps {
