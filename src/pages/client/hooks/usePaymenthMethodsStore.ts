@@ -4,7 +4,7 @@ import { CreditCardProps } from './api/useClientPaymentMethods'
 interface StorePaymentMethodsProps {
   paymentMethods: CreditCardProps[],
   setInitialPaymentMethods: (paymentMethods: CreditCardProps[]) => void
-  setPaymentMethods: (paymentMethods: CreditCardProps) => void
+  addPaymentMethods: (paymentMethods: CreditCardProps) => void
   removePaymentMethods: (id: string) => void
 }
 
@@ -13,7 +13,7 @@ export const usePaymentMethodsStore = create<StorePaymentMethodsProps>((set) => 
   setInitialPaymentMethods: (paymentMethods: CreditCardProps[]) => set(() => ({
     paymentMethods
   })),
-  setPaymentMethods: (paymentMethods: CreditCardProps) => set((state) => ({
+  addPaymentMethods: (paymentMethods: CreditCardProps) => set((state) => ({
     paymentMethods: [...state.paymentMethods, paymentMethods]
   })),
   removePaymentMethods: (id: string) => set((state) => ({

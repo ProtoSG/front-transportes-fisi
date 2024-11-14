@@ -4,13 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '../../../../admin/components'
 import { InputFieldLight } from '../../../../../components'
 import { InputFieldWithFormat } from './InputFieldWithFormat'
+import { CreditCardProps } from '../../../hooks/api/useClientPaymentMethods'
+import { AddUpdatePaymentMethod } from '../../../services/clientPaymentMethods'
 
-export const FormMetodoPago = () => {
+export const FormMetodoPago = ({ data, onAction }: { data?: CreditCardProps, onAction: (d: AddUpdatePaymentMethod) => void }) => {
   const { control, handleSubmit, formState: { errors } } = useForm<metodoPagoData>({
     resolver: zodResolver(schemaMetodoPago),
     defaultValues: {
-      nombre: "",
-      numero_tarjeta: "",
+      nombre: data?.nombre ?? "",
+      numero_tarjeta: data?.numero_tarjeta ?? "",
       cvv: "",
       month: "",
       day: ""
@@ -18,8 +20,11 @@ export const FormMetodoPago = () => {
   })
 
   const onSubmit = (data: metodoPagoData) => {
-    data = {...data, numero_tarjeta: data.numero_tarjeta.replace(/\s/g, '')}
-    console.log({ data })
+    const newData = { nombre: data.nombre, numero_tarjeta: data.numero_tarjeta.replace(/\s/g, '')}
+    onAction(newData)
+    // close dialog
+    const dialog = document.getElementById('dialog-metodo-pago') as HTMLDialogElement
+    if (dialog) dialog.close()
   }
   
   const formatCard = (card: string) => {

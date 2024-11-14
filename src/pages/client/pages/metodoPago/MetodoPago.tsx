@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { NewButton } from '../../../../components'
 import { DialogAddEdit } from '../../../admin/components'
 import { Header } from '../../components'
-import { useGetClientPaymentMethods } from '../../hooks/api/useClientPaymentMethods'
+import { useAddPaymentMethod, useGetClientPaymentMethods } from '../../hooks/api/useClientPaymentMethods'
 import { usePaymentMethodsStore } from '../../hooks/usePaymenthMethodsStore'
 import { CreditCardList } from './components/CreditCardList'
 import { FormMetodoPago } from './components/FormMetodoPago'
@@ -12,6 +12,7 @@ export const MetodoPago = () => {
     const dialog = document.getElementById('dialog-metodo-pago') as HTMLDialogElement
     if (dialog) dialog.showModal()
   }
+  const { addPaymentMethod, newData, error: addError } = useAddPaymentMethod()
   const { creditCards, error } = useGetClientPaymentMethods()
   const setInitialPaymentMethods = usePaymentMethodsStore((state) => state.setInitialPaymentMethods)
 
@@ -20,6 +21,11 @@ export const MetodoPago = () => {
   }, [creditCards, setInitialPaymentMethods])
 
   const paymentMethods = usePaymentMethodsStore((state) => state.paymentMethods)
+  const addPaymentMethods = usePaymentMethodsStore((state) => state.addPaymentMethods)
+
+  useEffect(() => {
+    if (newData) addPaymentMethods(newData)
+  }, [newData, addPaymentMethods])
 
   return (
     <>
@@ -39,7 +45,7 @@ export const MetodoPago = () => {
         id="dialog-metodo-pago"
         title="Nuevo Método de Pago"
       >
-        <FormMetodoPago />
+        <FormMetodoPago onAction={addPaymentMethod} />
       </DialogAddEdit>
     </>
   )
