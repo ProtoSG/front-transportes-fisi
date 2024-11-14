@@ -1,6 +1,7 @@
 import { NewButton } from '../../../../components'
 import { DialogAddEdit } from '../../../admin/components'
 import { Header } from '../../components'
+import { useGetClientPaymentMethods } from '../../hooks/api/useClientPaymentMethods'
 import { CreditCardList } from './components/CreditCardList'
 import { FormMetodoPago } from './components/FormMetodoPago'
 
@@ -10,23 +11,7 @@ export const MetodoPago = () => {
     if (dialog) dialog.showModal()
   }
 
-  const creditCards = [
-    {
-      id_metodo_pago: 1,
-      nombre: "Nombre",
-      numero_tarjeta: "Numero de Tarjeta"
-    },
-    {
-      id_metodo_pago: 2,
-      nombre: "Nombre",
-      numero_tarjeta: "Numero de Tarjeta"
-    },
-    {
-      id_metodo_pago: 3,
-      nombre: "Nombre",
-      numero_tarjeta: "Numero de Tarjeta"
-    }
-  ]
+  const { creditCards, error } = useGetClientPaymentMethods()
 
   return (
     <>
@@ -39,7 +24,8 @@ export const MetodoPago = () => {
             Agregar Nuevo
           </NewButton>
         </Header>
-        <CreditCardList creditCards={creditCards} />
+        { error && <div className="text-red-500 text-xl">{ error.message }</div> }
+        { !error && creditCards && <CreditCardList creditCards={creditCards} /> }
       </section>
       <DialogAddEdit
         id="dialog-metodo-pago"

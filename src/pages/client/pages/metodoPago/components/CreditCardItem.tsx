@@ -1,4 +1,4 @@
-import { CreditCardProps } from './CreditCardList'
+import { CreditCardProps } from '../../../hooks/api/useClientPaymentMethods'
 import { CreditCardIcon, EditIcon, TrashIcon } from '../../../../../icons'
 
 export const CreditCardItem = ({ creditCard }: { creditCard: CreditCardProps }) => {

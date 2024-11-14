@@ -1,10 +1,5 @@
 import { CreditCardItem } from "./CreditCardItem"
-
-export interface CreditCardProps {
-  id_metodo_pago: number,
-  nombre: string,
-  numero_tarjeta: string,
-}
+import { CreditCardProps } from "../../../hooks/api/useClientPaymentMethods"
 
 export const CreditCardList = ({ creditCards }: { creditCards: CreditCardProps[] }) => {
   return (
