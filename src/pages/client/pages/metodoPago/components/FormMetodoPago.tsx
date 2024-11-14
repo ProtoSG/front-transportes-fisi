@@ -1,7 +1,6 @@
 import { metodoPagoData, schemaMetodoPago } from '../models/formMetodoPago'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { formField } from '../../../../admin/models/formField.model'
 import { Form } from '../../../../admin/components'
 import { InputFieldLight } from '../../../../../components'
 import { InputFieldWithFormat } from './InputFieldWithFormat'
@@ -17,10 +16,6 @@ export const FormMetodoPago = () => {
       day: ""
     }
   })
-
-  const formFields: formField<metodoPagoData>[] = [
-    { name: "nombre", type: "text", placeholder: "Nombre", label: "Nombre" },
-  ]
 
   const onSubmit = (data: metodoPagoData) => {
     data = {...data, numero_tarjeta: data.numero_tarjeta.replace(/\s/g, '')}
