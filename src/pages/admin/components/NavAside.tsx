@@ -1,4 +1,4 @@
-import { BusIcon, LogoutIcon, UserOutlineIcon } from '../../../icons'
+import { BusIcon, LogoutIcon, ServiceIcon, UserOutlineIcon } from '../../../icons'
 import { ChairIcon } from '../../../icons/ChairIcon'
 import { DiscountIcon } from '../../../icons/DiscountIcon'
 import { DriverIcon } from '../../../icons/DriverIcon'
@@ -7,41 +7,50 @@ import { PlaneIcon } from '../../../icons/PlaneIcon'
 import { RouteIcon } from '../../../icons/RouteIcon'
 import logo from '../../../assets/logo.png'
 import { LinkItem } from './LinkItem'
+import { removeFromLocalStorage } from '../../../services/localStorageActions'
 
 const links = [
   {
-    icon: <UserOutlineIcon className="text-white" />,
+    icon: <UserOutlineIcon />,
     link: ""
   },
   {
-    icon: <PlaneIcon className="text-white" />,
+    icon: <PlaneIcon />,
     link: "/programacion-viaje",
   },
   {
-    icon: <RouteIcon className="text-white" />,
+    icon: <RouteIcon />,
     link: "/ruta"
   },
   {
-    icon: <BusIcon className="text-white" />,
+    icon: <BusIcon />,
     link: "/bus"
   },
   {
-    icon: <HomeIcon className="text-white" />,
+    icon: <HomeIcon />,
     link: "/terminal"
   },
   {
-    icon: <DiscountIcon className="text-white" />,
+    icon: <DiscountIcon />,
     link: "/descuento"
   },
   {
-    icon: <DriverIcon className="text-white" />,
+    icon: <DriverIcon />,
     link: "/conductor"
   },
   {
-    icon: <ChairIcon className="text-white" />,
+    icon: <ChairIcon />,
     link: "/asiento"
+  },
+  {
+    icon: <ServiceIcon />,
+    link: "/servicio"
   }
 ]
+
+const handleLogout = () => {
+  removeFromLocalStorage("jwt_token")
+}
 
 export function NavAside() {
   return (
@@ -49,7 +58,7 @@ export function NavAside() {
       <div className='flex flex-col gap-20'>
         <img src={logo} alt="logo" className="w-16" />
         <nav>
-          <ul className='flex flex-col gap-4 items-center'>
+          <ul className='flex flex-col gap-4 items-center text-white'>
             {
               links.map((link) => (
                 <li key={link.link}>
@@ -66,9 +75,7 @@ export function NavAside() {
       <LinkItem
         link="/login"
         icon={<LogoutIcon className="text-white" />}
-        onClick={() => {
-          console.log("logout")
-        }}
+        onClick={handleLogout}
       />
     </aside>
 
