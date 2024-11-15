@@ -3,7 +3,8 @@ import Home from "./pages/home/Home"
 import { PassengerDetails, SearchResult, SeatSelection, User } from "./pages/user"
 import Login from "./pages/login/Login"
 import { Admin } from "./pages/admin/Admin"
-import { AdminProfile, Asiento, Bus, Conductor, Descuento, ProgramacionViaje, Ruta, Terminal } from "./pages/admin/pages"
+import { AdminProfile, Asiento, Bus, Conductor, Descuento, ProgramacionViaje, Ruta, Servicio, Terminal } from "./pages/admin/pages"
+import { PrivateRoute } from "./components/PrivateRoute"
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path='/passenger-details' element={<PassengerDetails />} />
       </Route>
 
-      <Route path='/admin' element={<Admin />} >
+      <Route path='/admin' element={<PrivateRoute><Admin /></PrivateRoute>} >
         <Route path="" element={<AdminProfile />} />
         <Route path="programacion-viaje" element={<ProgramacionViaje />} />
         <Route path="ruta" element={<Ruta />} />
@@ -27,6 +28,7 @@ function App() {
         <Route path="descuento" element={<Descuento />} />
         <Route path="conductor" element={<Conductor />} />
         <Route path="asiento" element={<Asiento />} />
+        <Route path="servicio" element={<Servicio />} />
       </Route>
     </Routes >
   )
