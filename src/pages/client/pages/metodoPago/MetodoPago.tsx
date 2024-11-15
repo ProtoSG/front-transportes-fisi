@@ -6,6 +6,7 @@ import { useAddPaymentMethod, useGetClientPaymentMethods } from '../../hooks/api
 import { usePaymentMethodsStore } from '../../hooks/usePaymenthMethodsStore'
 import { CreditCardList } from './components/CreditCardList'
 import { FormMetodoPago } from './components/FormMetodoPago'
+import { toast, Toaster } from 'sonner'
 
 export const MetodoPago = () => {
   const handleOpenDialog = () => {
@@ -27,6 +28,11 @@ export const MetodoPago = () => {
     if (newData) addPaymentMethods(newData)
   }, [newData, addPaymentMethods])
 
+  useEffect(() => {
+    if (addError) toast.error(addError.message)
+    if (error) toast.error(error.message)
+  }, [error, addError])
+
   return (
     <>
       <section className="bg-inherit w-[80%] text-white flex flex-col gap-10">
@@ -38,7 +44,6 @@ export const MetodoPago = () => {
             Agregar Nuevo
           </NewButton>
         </Header>
-        { error && <div className="text-red-500 text-xl">{ error.message }</div> }
         { !error && paymentMethods && <CreditCardList creditCards={paymentMethods} /> }
       </section>
       <DialogAddEdit
@@ -47,6 +52,7 @@ export const MetodoPago = () => {
       >
         <FormMetodoPago dialogId="dialog-metodo-pago" onAction={addPaymentMethod} />
       </DialogAddEdit>
+      <Toaster richColors />
     </>
   )
 }

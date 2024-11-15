@@ -13,7 +13,7 @@ export const getClientInfo = async (token: string) => {
 
     // if not send token the api return 422
     if (response.status === 422) {
-      throw new Error('No se ha podido autenticar')
+      throw new Error('No se pudo autenticar')
     }
 
     if (!response.ok) {
