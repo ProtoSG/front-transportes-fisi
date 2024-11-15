@@ -1,44 +1,53 @@
+import { useEffect, useState } from 'react'
 import { Table } from '../../../admin/components'
 import { createColumns } from '../../../admin/services/createColumns'
+import { useClientTickets } from '../../hooks/api/useClientTickets'
 import { Header } from './../../components'
 import { PrintButton } from './component/PrintButton'
+import { toast, Toaster } from 'sonner'
+import { ClientTicketsProps } from '../../hooks/api/useClientTickets'
+import dayjs from 'dayjs'
+
+interface ClientTicketsPropsWithPrint extends ClientTicketsProps {
+  imprimir: JSX.Element
+}
 
 export const Boleto = () => {
   const columns = createColumns([
     "hora_salida",
-    "fecha_de_salida",
-    "puerto_de_salida",
-    "puerto_de_destino",
-    "pasajero",
+    "fecha_salida",
+    "puerto_salida",
+    "puerto_destino",
+    "nombre_pasajero",
     "precio",
     "imprimir"
   ])
 
-  const data = [
-    {
-      hora_salida: "12:00",
-      fecha_de_salida: "2023-01-01",
-      puerto_de_salida: "Barcelona",
-      puerto_de_destino: "Madrid",
-      pasajero: "Juan",
-      precio: 10,
-      imprimir: <PrintButton id_pasaje="1" />,
-    },
-    {
-      hora_salida: "12:00",
-      fecha_de_salida: "2023-01-01",
-      puerto_de_salida: "Barcelona",
-      puerto_de_destino: "Madrid",
-      pasajero: "Juan",
-      precio: 10,
-      imprimir: <PrintButton id_pasaje="2" />,
-    }
-  ]
+  const [data, setData] = useState<ClientTicketsPropsWithPrint[]>([])
+  const { clientTickets, error } = useClientTickets()
+
+  useEffect(() => {
+    const d = clientTickets?.map((a) => ({
+      ...a,
+      fecha_salida: dayjs(a.fecha_salida).format("DD/MM/YYYY"),
+      imprimir: <PrintButton id_pasaje={a.id_pasaje} />,
+    })) as ClientTicketsPropsWithPrint[]
+    setData(d)
+  }, [clientTickets])
+
+  useEffect(() => {
+    if (error) toast.error(error.message)
+  }, [error])
 
   return (
-    <section className="bg-inherit w-[80%] text-white flex flex-col gap-10">
-      <Header title='Mis boletos' />
-      <Table columns={columns} data={data} />
-    </section>
+    <>
+      <section className="bg-inherit w-[80%] text-white flex flex-col gap-10">
+        <Header title='Mis boletos' />
+        {
+          clientTickets && <Table columns={columns} data={data} />
+        }
+      </section>
+      <Toaster richColors />
+    </>
   )
 }
