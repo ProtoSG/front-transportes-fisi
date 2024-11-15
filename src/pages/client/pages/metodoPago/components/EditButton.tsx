@@ -4,6 +4,7 @@ import { DialogAddEdit } from "../../../../admin/components"
 import { CreditCardProps, useUpdatePaymentMethod } from "../../../hooks/api/useClientPaymentMethods"
 import { usePaymentMethodsStore } from "../../../hooks/usePaymenthMethodsStore"
 import { FormMetodoPago } from "./FormMetodoPago"
+import { toast, Toaster } from "sonner"
 
 export const EditButton = ({ data }: { data?: CreditCardProps }) => {
   const dialogId = `dialog-metodo-pago-update-${data?.id_metodo_pago}`
@@ -13,12 +14,15 @@ export const EditButton = ({ data }: { data?: CreditCardProps }) => {
   }
 
   const { updatePaymentMethod, newData, error: updateError } = useUpdatePaymentMethod()
-
   const updatePaymentMethods = usePaymentMethodsStore((state) => state.updatePaymentMethod)
 
   useEffect(() => {
     if (newData) updatePaymentMethods(newData)
   }, [newData, updatePaymentMethods])
+
+  useEffect(() => {
+    if (updateError) toast.error(updateError.message)
+  }, [updateError])
 
   return (
     <>
@@ -39,6 +43,7 @@ export const EditButton = ({ data }: { data?: CreditCardProps }) => {
           data={data}
         />
       </DialogAddEdit>
+      <Toaster richColors />
     </>
   )
 }
