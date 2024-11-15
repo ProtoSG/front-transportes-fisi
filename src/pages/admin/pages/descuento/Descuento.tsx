@@ -1,71 +1,20 @@
-import { DialogAddEdit, Header, Section, Table } from "../../components";
-import { createColumns } from "../../services/createColumns";
-import { FormDescuento } from "./components";
+import { DialogAddEdit } from "../../components";
+import { FormDescuento, MainDescuento } from "./components";
+import { DescuentoProvider } from "./hooks/useDescuento";
+import { useEditDescuento } from "./hooks/useEditDescuento";
 
 export function Descuento() {
-
-  const columns = createColumns([
-    "id",
-    "codigo",
-    "monto",
-    "estado",
-    "id_admin"
-  ])
-
-  const data = [
-    {
-      id: "1",
-      codigo: "123456",
-      monto: "10.00",
-      estado: "Activo",
-      id_admin: "1"
-    },
-    {
-      id: "2",
-      codigo: "123456",
-      monto: "10.00",
-      estado: "Activo",
-      id_admin: "1"
-    },
-    {
-      id: "3",
-      codigo: "123456",
-      monto: "10.00",
-      estado: "Activo",
-      id_admin: "1"
-    },
-    {
-      id: "4",
-      codigo: "123456",
-      monto: "10.00",
-      estado: "Activo",
-      id_admin: "1"
-    },
-  ]
-
-  const handleOpenDialog = () => {
-    const dialog = document.getElementById('dialog-descuento') as HTMLDialogElement
-    if (dialog) dialog.showModal()
-  }
+  const { isEdit } = useEditDescuento()
 
   return (
-    <>
-      <Section>
-        <Header
-          title="Descuento"
-          onClick={handleOpenDialog}
-        />
-        <Table
-          columns={columns}
-          data={data}
-        />
-      </Section>
+    <DescuentoProvider>
+      <MainDescuento />
       <DialogAddEdit
         id="dialog-descuento"
-        title="Nuevo Descuento"
+        title={isEdit ? "Editar Descuento" : "Nuevo Descuento"}
       >
         <FormDescuento />
       </DialogAddEdit>
-    </>
+    </DescuentoProvider>
   )
 }
