@@ -5,10 +5,18 @@ import { Form } from '../../../../admin/components'
 import { InputFieldLight } from '../../../../../components'
 import { InputFieldWithFormat } from './InputFieldWithFormat'
 import { CreditCardProps } from '../../../hooks/api/useClientPaymentMethods'
-import { AddUpdatePaymentMethod } from '../../../services/clientPaymentMethods'
+import { UpdatePaymentMethodProps } from '../../../services/clientPaymentMethods'
+import { useEffect } from 'react'
 
-export const FormMetodoPago = ({ data, onAction }: { data?: CreditCardProps, onAction: (d: AddUpdatePaymentMethod) => void }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm<metodoPagoData>({
+interface FormMetodoPagoProps {
+  data?: CreditCardProps,
+  id?: string,
+  onAction: (d: UpdatePaymentMethodProps) => void
+  dialogId: string
+}
+
+export const FormMetodoPago = ({ dialogId, data, onAction, id }: FormMetodoPagoProps) => {
+  const { control, handleSubmit, formState: { errors }, reset } = useForm<metodoPagoData>({
     resolver: zodResolver(schemaMetodoPago),
     defaultValues: {
       nombre: data?.nombre ?? "",
@@ -19,25 +27,35 @@ export const FormMetodoPago = ({ data, onAction }: { data?: CreditCardProps, onA
     }
   })
 
-  const onSubmit = (data: metodoPagoData) => {
-    const newData = { nombre: data.nombre, numero_tarjeta: data.numero_tarjeta.replace(/\s/g, '')}
+  useEffect(() => {
+    if (data) {
+      reset({
+        nombre: data?.nombre ?? "",
+        numero_tarjeta: data?.numero_tarjeta ?? "",
+        cvv: "",
+        month: "",
+        day: ""
+      })
+    }
+  }, [data, reset])
+
+  const onSubmit = (dataForm: metodoPagoData) => {
+    const { nombre, numero_tarjeta } = dataForm
+    const newData = {
+      nombre,
+      numero_tarjeta: numero_tarjeta.replace(/\s/g, ''),
+      id_metodo_pago: id ?? "" 
+    }
+    // console.log(newData)
     onAction(newData)
     // close dialog
-    const dialog = document.getElementById('dialog-metodo-pago') as HTMLDialogElement
+    const dialog = document.getElementById(dialogId) as HTMLDialogElement
     if (dialog) dialog.close()
   }
   
-  const formatCard = (card: string) => {
-    return card.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, "$1 ").trim()
-  }
-
-  const formatCVV = (cvv: string) => {
-    return cvv.replace(/\D/g, '').replace(/(\d{3})(?=\d)/g, "$1 ").trim()
-  }
-
-  const formDate = (date: string) => {
-    return date.replace(/\D/g, '').replace(/(\d{2})(?=\d)/g, "$1 ").trim()
-  }
+  const formatCard = (card: string) => card.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, "$1 ").trim()
+  const formatCVV = (cvv: string) => cvv.replace(/\D/g, '').replace(/(\d{3})(?=\d)/g, "$1 ").trim()
+  const formDate = (date: string) => date.replace(/\D/g, '').replace(/(\d{2})(?=\d)/g, "$1 ").trim()
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} >

@@ -45,7 +45,7 @@ export const MetodoPago = () => {
         id="dialog-metodo-pago"
         title="Nuevo Método de Pago"
       >
-        <FormMetodoPago onAction={addPaymentMethod} />
+        <FormMetodoPago dialogId="dialog-metodo-pago" onAction={addPaymentMethod} />
       </DialogAddEdit>
     </>
   )

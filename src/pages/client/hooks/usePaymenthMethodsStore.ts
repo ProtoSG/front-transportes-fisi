@@ -6,6 +6,7 @@ interface StorePaymentMethodsProps {
   setInitialPaymentMethods: (paymentMethods: CreditCardProps[]) => void
   addPaymentMethods: (paymentMethods: CreditCardProps) => void
   removePaymentMethods: (id: string) => void
+  updatePaymentMethod: (paymentMethod: CreditCardProps) => void
 }
 
 export const usePaymentMethodsStore = create<StorePaymentMethodsProps>((set) => ({
@@ -18,5 +19,8 @@ export const usePaymentMethodsStore = create<StorePaymentMethodsProps>((set) => 
   })),
   removePaymentMethods: (id: string) => set((state) => ({
     paymentMethods: state.paymentMethods.filter((paymentMethod) => paymentMethod.id_metodo_pago !== id)
+  })),
+  updatePaymentMethod: (updatedPaymentMethod: CreditCardProps) => set((state) => ({
+    paymentMethods: state.paymentMethods.map((pm) => pm.id_metodo_pago === updatedPaymentMethod.id_metodo_pago ? updatedPaymentMethod : pm)
   }))
 }))

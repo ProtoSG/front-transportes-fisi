@@ -56,12 +56,13 @@ export const deleteClientPaymentMethod = async (token: string, id: string) => {
   }
 }
 
-export interface AddUpdatePaymentMethod {
+export interface UpdatePaymentMethodProps {
+  id_metodo_pago: string,
   nombre: string,
   numero_tarjeta: string,
 }
 
-export const addClientPaymentMethod = async (token: string, paymentMethod: AddUpdatePaymentMethod) => {
+export const addClientPaymentMethod = async (token: string, paymentMethod: UpdatePaymentMethodProps) => {
   const apiUrl = `${API_URL}/client/payment-method`
   try {
     const response = await fetch(apiUrl, {
@@ -90,8 +91,8 @@ export const addClientPaymentMethod = async (token: string, paymentMethod: AddUp
   }
 }
 
-export const updateClientPaymentMethod = async (token: string, idPaymentMethod: string, paymentMethod: AddUpdatePaymentMethod) => {
-  const apiUrl = `${API_URL}/client/payment-method/${idPaymentMethod}`
+export const updateClientPaymentMethod = async (token: string, paymentMethod: UpdatePaymentMethodProps) => {
+  const apiUrl = `${API_URL}/client/payment-method/${paymentMethod.id_metodo_pago}`
   try {
     const response = await fetch(apiUrl, {
       method: 'PUT',
