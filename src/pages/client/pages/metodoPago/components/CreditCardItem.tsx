@@ -1,7 +1,7 @@
 import { CreditCardProps } from '../../../hooks/api/useClientPaymentMethods'
 import { DeleteButton } from './DeleteButton'
 import { EditButton } from './EditButton'
-import { VisaIcon } from '../../../../../icons/VisaIcon'
+import { VisaIcon } from '../../../../../icons'
 
 const formatCarNumber = (number: string) => {
   // space every 4 characters
