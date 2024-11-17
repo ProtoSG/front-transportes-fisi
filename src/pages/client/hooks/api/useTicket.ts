@@ -26,8 +26,13 @@ export const useTicket = () => {
     }
   }
 
+  const resetTicketName = () => {
+    setTicketName('')
+  }
+
   return {
     fetchInfo,
+    resetTicketName,
     ticketName,
     loading,
     error

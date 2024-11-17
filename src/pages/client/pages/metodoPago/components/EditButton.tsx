@@ -17,7 +17,10 @@ export const EditButton = ({ data }: { data?: CreditCardProps }) => {
   const updatePaymentMethods = usePaymentMethodsStore((state) => state.updatePaymentMethod)
 
   useEffect(() => {
-    if (newData) updatePaymentMethods(newData)
+    if (newData) {
+      updatePaymentMethods(newData)
+      toast.success(`Método de Pago actualizado con éxito`)
+    }
   }, [newData, updatePaymentMethods])
 
   useEffect(() => {

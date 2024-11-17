@@ -5,10 +5,12 @@ import { useEffect } from 'react'
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 export const PrintButton = ({ id_pasaje }: { id_pasaje: string }) => {
-  const { fetchInfo, error, ticketName } = useTicket()
+  const { fetchInfo, resetTicketName, error, ticketName } = useTicket()
 
   useEffect(() => {
-    if (error) toast.error(error.message)
+    if (error) {
+      toast.error(error.message)
+    }
   }, [error])
 
   useEffect(() => {
@@ -16,8 +18,9 @@ export const PrintButton = ({ id_pasaje }: { id_pasaje: string }) => {
       toast.success(`Boleto generado con éxito`)
       const urlTicekt = `${API_URL}/ticket/pdf/${ticketName}`
       window.open(urlTicekt, '_blank')
+      resetTicketName()
     }
-  }, [ticketName])
+  }, [ticketName, resetTicketName])
 
   return (
     <>

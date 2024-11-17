@@ -26,8 +26,11 @@ export const DeleteButton = ({ id }: { id: string}) => {
   }, [error])
 
   useEffect(() => {
-    if (idDeleted) removePaymentMethods(idDeleted)
-  }, [idDeleted])
+    if (idDeleted) {
+      removePaymentMethods(idDeleted)
+      toast.success(`Método de Pago eliminado con éxito`)
+    }
+  }, [idDeleted, removePaymentMethods])
 
   return (
     <>

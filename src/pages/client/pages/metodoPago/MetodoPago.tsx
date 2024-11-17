@@ -25,7 +25,10 @@ export const MetodoPago = () => {
   const addPaymentMethods = usePaymentMethodsStore((state) => state.addPaymentMethods)
 
   useEffect(() => {
-    if (newData) addPaymentMethods(newData)
+    if (newData) {
+      addPaymentMethods(newData)
+      toast.success(`Método de Pago agregado con éxito`)
+    }
   }, [newData, addPaymentMethods])
 
   useEffect(() => {
