@@ -1,4 +1,4 @@
-import { CreditCardIcon, LogoutIcon, TicketIcon, UserOutlineIcon } from '../../../icons'
+import { CreditCardIcon, LogoutIcon, TicketIcon, UserOutlineIcon, ShoppingBagIcon } from '../../../icons'
 import logo from '../../../assets/logo.png'
 import { LinkItem } from './../../admin/components'
 
@@ -15,6 +15,10 @@ const links = [
     icon: <TicketIcon className="text-white" />,
     link: "boleto"
   },
+  {
+    icon: <ShoppingBagIcon className="text-white" />,
+    link: "compra"
+  }
 ]
 
 export function NavAside() {
