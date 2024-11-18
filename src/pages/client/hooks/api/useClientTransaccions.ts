@@ -1,35 +1,31 @@
 import { useEffect, useState } from 'react'
-import { getTicketsByIdClient } from '../../services/clientTickets'
+import { getClientTransaccion } from '../../services/clientTransaccion'
 import { loadFromLocalStorage } from '../../../../services/localStorageActions'
 
-export interface ClientTicketsProps {
-  id_pasaje: string
-  hora_salida: string
-  puerto_destino: string
-  puerto_origen: string
-  precio: number
-  fecha_salida: string
-  nombre_pasajero: string
+export interface ClientTransaccionProps {
+  id_transaccion: string
   fecha_compra: string
+  hora_compra: string
+  precio_total: number
 }
 
-export const useClientTickets = () => {
-  const [clientTickets, setClientTickets] = useState<ClientTicketsProps[] | null>(null)
+export const useClientTransaccions = () => {
+  const [clientTransaccions, setClientTransaccions] = useState<ClientTransaccionProps[] | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<any>(null)
 
-  const fetchTickets = async () => {
+  const fetchTransaccions = async () => {
     setLoading(true)
     setError(null)
 
     const token = loadFromLocalStorage<string>("jwt_token", "")
 
     try {
-      const res = await getTicketsByIdClient(token)
+      const res = await getClientTransaccion(token)
       if (res.error) {
         throw new Error(res.error)
       }
-      setClientTickets(res)
+      setClientTransaccions(res)
     } catch (err) {
       setError(err)
     } finally {
@@ -38,11 +34,11 @@ export const useClientTickets = () => {
   }
 
   useEffect(() => {
-    fetchTickets()
+    fetchTransaccions()
   }, [])
 
   return {
-    clientTickets,
+    clientTransaccions,
     loading,
     error,
   }
