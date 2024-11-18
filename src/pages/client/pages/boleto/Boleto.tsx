@@ -20,6 +20,7 @@ export const Boleto = () => {
     "puerto_destino",
     "nombre_pasajero",
     "precio",
+    "fecha_compra",
     "imprimir"
   ])
 
@@ -30,6 +31,7 @@ export const Boleto = () => {
     const d = clientTickets?.map((a) => ({
       ...a,
       fecha_salida: dayjs(a.fecha_salida).format("DD/MM/YYYY"),
+      fecha_compra: dayjs(a.fecha_compra).format("DD/MM/YYYY"),
       imprimir: <PrintButton id_pasaje={a.id_pasaje} />,
     })) as ClientTicketsPropsWithPrint[]
     setData(d)

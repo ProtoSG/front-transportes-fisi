@@ -4,7 +4,7 @@ import { PassengerDetails, SearchResult, SeatSelection, User } from "./pages/use
 import Login from "./pages/login/Login"
 import { Admin } from "./pages/admin/Admin"
 import { Asiento, Bus, Conductor, Descuento, ProgramacionViaje, Ruta, Terminal } from "./pages/admin/pages"
-import { Boleto, MetodoPago, Perfil } from "./pages/client/pages"
+import { Boleto, MetodoPago, Perfil, Compra } from "./pages/client/pages"
 import { Client } from "./pages/client/Client"
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
         <Route path="perfil" element={<Perfil />} />
         <Route path="metodo-pago" element={<MetodoPago />} />
         <Route path="boleto" element={<Boleto />} />
+        <Route path="compra" element={<Compra />} />
       </Route>
     </Routes >
   )
