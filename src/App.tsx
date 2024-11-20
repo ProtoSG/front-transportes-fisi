@@ -11,7 +11,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
 
-      <Route path='/login' element={<Login />} />
+      <Route path='/login/:userType' element={<Login />} />
 
       <Route path="" element={<User />}>
         <Route path='/search-results' element={<SearchResult />} />

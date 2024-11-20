@@ -1,9 +1,14 @@
 import { api } from "../../../api/api";
 import { Login } from "../model/login.model";
 
-export const login = async (body: Login) => {
+interface Props {
+  body: Login,
+  url?: string
+}
+
+export const login = async ({ body, url }: Props) => {
   try {
-    const response = await fetch(`${api}/login/admin`, {
+    const response = await fetch(`${api}/login/${url}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

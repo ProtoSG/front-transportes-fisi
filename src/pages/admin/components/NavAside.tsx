@@ -73,7 +73,7 @@ export function NavAside() {
         </nav>
       </div>
       <LinkItem
-        link="/login"
+        link="/login/admin"
         icon={<LogoutIcon className="text-white" />}
         onClick={handleLogout}
       />

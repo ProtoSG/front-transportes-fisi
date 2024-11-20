@@ -8,7 +8,10 @@ export function Header() {
         <img src={logo} alt="logo" className="w-9" />
         <h1 className='text-2xl font-bold'>Transportes FISI</h1>
       </div>
-      <a href='/admin' className='absolute border-2 rounded-full p-2 right-0 hover:cursor-pointer hover:bg-white/20 transition-colors '>
+      <a
+        href='/login/client'
+        className='absolute border-2 rounded-full p-2 right-0 hover:cursor-pointer hover:bg-white/20 transition-colors'
+      >
         <UserIcon />
       </a>
       <hr className='border-2 border-primary-300' />
