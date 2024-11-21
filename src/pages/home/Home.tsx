@@ -4,6 +4,7 @@ import { useDataTripInfo } from "../../hooks/useDataTripInfo";
 import FavoriteCities from "./modules/favorite-cities/FavoriteCities";
 import Hero from "./modules/hero/Hero";
 import Payments from "./modules/payments/Payments";
+import { Toaster } from "sonner";
 
 export default function Home() {
   const {
@@ -30,6 +31,7 @@ export default function Home() {
       <Payments />
       <FavoriteCities />
       <Footer />
+      <Toaster richColors />
     </>
   )
 }
