@@ -10,7 +10,6 @@ import { createDescuento, updateDescuento } from "../services/descuento.service"
 import { toast } from "sonner";
 import { useEditDescuento } from "../hooks/useEditDescuento";
 import { useEffect } from "react";
-import { undefined } from "zod";
 
 export function FormDescuento() {
   const { fetchData } = useDescuento()

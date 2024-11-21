@@ -1,6 +1,6 @@
-import { api } from "../../../../../api/api";
 import { loadFromLocalStorage } from "../../../../../services/localStorageActions";
 import { ServicioCreate } from "../models/servicio.model";
+const api = import.meta.env.VITE_BACKEND_URL
 
 export const createServicio = async (body: ServicioCreate) => {
   try {

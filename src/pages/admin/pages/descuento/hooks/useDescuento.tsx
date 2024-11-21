@@ -2,7 +2,6 @@ import { createContext, ReactNode, useContext } from "react"
 import { useDataBack } from "../../../../../hooks/useDataBack"
 import { descuentoAdapter } from "../adapters/descuento.adapter"
 import { Descuento } from "../models/descuento.model"
-import { loadFromLocalStorage } from "../../../../../services/localStorageActions"
 
 const DescuentoContext = createContext({
   data: [] as Descuento[],

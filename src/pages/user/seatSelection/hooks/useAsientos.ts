@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react"
 import { Asiento } from "../models/asiento.model"
-import { api } from "../../../../api/api"
 import { AsientoBack } from "../models/asientoBack.model"
 import { asientoAdapter } from "../adapters/asiendo.adapter"
+const api = import.meta.env.VITE_BACKEND_URL
 
 interface AsientosProps {
   id: number

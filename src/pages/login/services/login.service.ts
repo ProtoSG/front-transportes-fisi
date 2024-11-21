@@ -1,5 +1,5 @@
-import { api } from "../../../api/api";
 import { Login } from "../model/login.model";
+const api = import.meta.env.VITE_BACKEND_URL
 
 interface Props {
   body: Login,

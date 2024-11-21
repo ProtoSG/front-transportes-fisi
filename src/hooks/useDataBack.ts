@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { api } from "../api/api"
 import { loadFromLocalStorage } from "../services/localStorageActions"
+const api = import.meta.env.VITE_BACKEND_URL
 
 interface DataBackProps {
   url: string
