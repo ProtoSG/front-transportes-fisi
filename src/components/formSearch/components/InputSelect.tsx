@@ -19,7 +19,7 @@ type InputSelectProps = {
 
 export function InputSelect({ name, control, error }: InputSelectProps) {
   const [active, setActive] = useState<boolean>(false)
-  const { ciudades } = useCiudades()
+  const { data: ciudades } = useCiudades()
 
   const options: OptProps[] = ciudades.map(ciudad => ({
     value: ciudad.nombre.toLowerCase(),
