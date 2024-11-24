@@ -1,83 +1,55 @@
 import { DialogAddEdit, Header, Section, Table } from "../../components";
 import { createColumns } from "../../services/createColumns";
 import { FormConductor } from "./components/FormConductor";
+import { useChoferHired } from "../../../../hooks/useChofer";
 
 export function Conductor() {
-
-  // id_chofer    int auto_increment
-  //   primary key,
-  // nombre       varchar(255) not null,
-  // apellido_pat varchar(50)  not null,
-  // apellido_mat varchar(50)  not null,
-  // dni          varchar(8)   not null,
-  // sexo         varchar(15)  not null
+  // Columnas para la tabla
   const columns = createColumns([
     "id",
     "nombre",
     "apellido_pat",
     "apellido_mat",
     "dni",
-    "sexo"
-  ])
+    "sexo",
+  ]);
 
-  const data = [
-    {
-      id: "1",
-      nombre: "Conductor 1",
-      apellido_pat: "Apellido Pat 1",
-      apellido_mat: "Apellido Mat 1",
-      dni: "12345678",
-      sexo: "Masculino"
-    },
-    {
-      id: "2",
-      nombre: "Conductor 2",
-      apellido_pat: "Apellido Pat 2",
-      apellido_mat: "Apellido Mat 2",
-      dni: "12345678",
-      sexo: "Masculino"
-    },
-    {
-      id: "3",
-      nombre: "Conductor 3",
-      apellido_pat: "Apellido Pat 3",
-      apellido_mat: "Apellido Mat 3",
-      dni: "12345678",
-      sexo: "Masculino"
-    },
-    {
-      id: "4",
-      nombre: "Conductor 4",
-      apellido_pat: "Apellido Pat 4",
-      apellido_mat: "Apellido Mat 4",
-      dni: "12345678",
-      sexo: "Masculino"
-    },
-  ]
+  // Uso del hook para cargar datos
+  const { data: choferes, loading, error } = useChoferHired({
+    url: "/chofer/hired",
+    jsonAdapter: (chofer) => ({
+      id: chofer.id_chofer,
+      nombre: chofer.nombre,
+      apellido_pat: chofer.apellido_pat,
+      apellido_mat: chofer.apellido_mat,
+      dni: chofer.dni,
+      sexo: chofer.sexo,
+    }),
+  });
 
   const handleOpenDialog = () => {
-    const dialog = document.getElementById('dialog-conductor') as HTMLDialogElement
-    if (dialog) dialog.showModal()
-  }
+    const dialog = document.getElementById("dialog-conductor") as HTMLDialogElement;
+    if (dialog) dialog.showModal();
+  };
 
   return (
     <>
       <Section>
-        <Header
-          title="Conductor"
-          onClick={handleOpenDialog}
-        />
-        <Table
-          columns={columns}
-          data={data}
-        />
+        <Header title="Conductor" onClick={handleOpenDialog} />
+
+        {/* Mostrar mensajes de carga o error */}
+        {loading ? (
+          <p>Cargando conductores...</p>
+        ) : error ? (
+          <p>Error al cargar los conductores: {error.message}</p>
+        ) : (
+          <Table columns={columns} data={choferes || []} />
+        )}
       </Section>
-      <DialogAddEdit
-        id="dialog-conductor"
-        title="Nuevo Conductor"
-      >
+
+      <DialogAddEdit id="dialog-conductor" title="Nuevo Conductor">
         <FormConductor />
       </DialogAddEdit>
     </>
-  )
+  );
 }
