@@ -6,7 +6,7 @@ import { useChoferHired } from "../../../../hooks/useChofer";
 export function Conductor() {
   // Columnas para la tabla
   const columns = createColumns([
-    "id",
+    "id_chofer",
     "nombre",
     "apellido_pat",
     "apellido_mat",
@@ -15,20 +15,27 @@ export function Conductor() {
   ]);
 
   // Uso del hook para cargar datos
-  const { data: choferes, loading, error } = useChoferHired({
+  const {
+    data: choferes,
+    loading,
+    error,
+  } = useChoferHired({
     url: "/chofer/hired",
     jsonAdapter: (chofer) => ({
-      id: chofer.id_chofer,
+      id_chofer: chofer.id_chofer,
       nombre: chofer.nombre,
       apellido_pat: chofer.apellido_pat,
       apellido_mat: chofer.apellido_mat,
       dni: chofer.dni,
       sexo: chofer.sexo,
+      estado: chofer.estado,
     }),
   });
 
   const handleOpenDialog = () => {
-    const dialog = document.getElementById("dialog-conductor") as HTMLDialogElement;
+    const dialog = document.getElementById(
+      "dialog-conductor"
+    ) as HTMLDialogElement;
     if (dialog) dialog.showModal();
   };
 
