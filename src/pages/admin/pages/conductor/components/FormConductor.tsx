@@ -46,7 +46,7 @@ export function FormConductor() {
     try {
       await createChofer(data);
       if (error) {
-        alert("Error al crear el conductor. Por favor, inténtalo de nuevo."); 
+        alert("Error al crear el conductor. Por favor, inténtalo de nuevo.");
         return;
       }
       alert("¡Conductor creado con éxito!");

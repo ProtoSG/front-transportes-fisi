@@ -1,20 +1,29 @@
 import { DialogAddEdit, Header, Section, Table } from "../../components";
-import { createColumns } from "../../services/createColumns";
+import { createColumnsD } from "../../services/createColumnsD";
 import { FormConductor } from "./components/FormConductor";
 import { useChoferHired } from "../../../../hooks/useChofer";
 
 export function Conductor() {
   // Columnas para la tabla
-  const columns = createColumns([
+  const columns = createColumnsD([
     "id_chofer",
     "nombre",
     "apellido_pat",
     "apellido_mat",
     "dni",
     "sexo",
-  ]);
+    "Accion",
+  ],{
+    Accion: (row) => (
+      <button
+        onClick={() => alert(`Botón clickeado para el chofer: ${row.nombre}`)}
+        style={{ padding: "5px 10px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "5px" }}
+      >
+        Eliminar
+      </button>
+    ),
+  });
 
-  // Uso del hook para cargar datos
   const {
     data: choferes,
     loading,
