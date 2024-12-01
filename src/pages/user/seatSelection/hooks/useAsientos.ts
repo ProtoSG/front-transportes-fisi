@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react"
 import { Asiento } from "../models/asiento.model"
 import { AsientoBack } from "../models/asientoBack.model"
-import { asientoAdapter } from "../adapters/asiendo.adapter"
 import { loadFromLocalStorage } from "../../../../services/localStorageActions"
+import { asientoAdapter } from "../adapters/asiento.adapter"
 const api = import.meta.env.VITE_BACKEND_URL
 
 interface AsientosProps {

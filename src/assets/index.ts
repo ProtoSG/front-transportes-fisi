@@ -1,9 +1,10 @@
 import Yape from './yape.png'
 import Plin from './plin.png'
-import Mastercard from './mastercard.png'
-import Visa from './visa.png'
+import Mastercard from './mastercard.svg'
+import Visa from './visa.svg'
 import Cusco from './cusco.png'
 import Colores from './7-colores.png'
 import Logo from './logo.png'
-
-export { Yape, Plin, Mastercard, Visa, Cusco, Colores, Logo }
+import Ica from './Ica.jpg'
+import Selva from './selva.jfif'
+export { Yape, Plin, Mastercard, Visa, Cusco, Colores, Logo ,Ica ,Selva}

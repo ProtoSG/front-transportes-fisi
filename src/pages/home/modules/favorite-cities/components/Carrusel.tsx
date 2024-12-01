@@ -1,9 +1,9 @@
-import { Colores, Cusco } from "../../../../../assets";
+import { Colores, Cusco ,Ica ,Selva} from "../../../../../assets";
 import { BoxImage } from "./BoxImage";
 
 export function Carousel() {
   const images = [
-    Colores, Cusco, Colores, Cusco, Colores, Cusco, Cusco, Colores, Cusco, Colores, Cusco
+    Ica,Colores, Cusco ,Selva,Ica , Colores, Cusco, Selva, Ica, Cusco,Colores, Selva ,Colores, Cusco,Ica
   ]
 
   return (

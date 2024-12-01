@@ -5,6 +5,8 @@ import Login from "./pages/login/Login"
 import { Admin } from "./pages/admin/Admin"
 import { AdminProfile, Asiento, Bus, Conductor, Descuento, ProgramacionViaje, Ruta, Servicio, Terminal } from "./pages/admin/pages"
 import { PrivateRoute } from "./components/PrivateRoute"
+import { Boleto, MetodoPago, Perfil, Compra } from "./pages/client/pages"
+import { Client } from "./pages/client/Client"
 
 function App() {
   return (
@@ -29,6 +31,12 @@ function App() {
         <Route path="conductor" element={<Conductor />} />
         <Route path="asiento" element={<Asiento />} />
         <Route path="servicio" element={<Servicio />} />
+      </Route>
+      <Route path='/client' element={<Client />} >
+        <Route path="perfil" element={<Perfil />} />
+        <Route path="metodo-pago" element={<MetodoPago />} />
+        <Route path="boleto" element={<Boleto />} />
+        <Route path="compra" element={<Compra />} />
       </Route>
     </Routes >
   )
