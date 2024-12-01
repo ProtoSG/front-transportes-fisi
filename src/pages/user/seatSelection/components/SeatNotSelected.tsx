@@ -22,10 +22,10 @@ export function SeatNotSelected({ seat }: SeatNotSelectedProps) {
 
     if (selected) {
       removeSeat(seat.idAsiento)
-      decrementTotal(seat.precio + viaje.precio)
+      decrementTotal(seat.precio)
     } else {
       addSeat(seat)
-      incrementTotal(seat.precio + viaje.precio)
+      incrementTotal(seat.precio)
     }
   }
 
@@ -38,7 +38,7 @@ export function SeatNotSelected({ seat }: SeatNotSelectedProps) {
       <hr className="border-primary-500 w-full" />
       <div className={`flex items-center w-full justify-center rounded-b gap-1 group-hover:bg-primary-500 group-hover:text-primary-50 transition-colors ${selected ? "bg-primary-500 text-primary-50" : ""}`}>
         <small>S/</small>
-        <span className="font-bold">{seat.precio + viaje.precio}</span>
+        <small className="font-bold">{seat.precio}</small>
       </div>
     </div>
   )
