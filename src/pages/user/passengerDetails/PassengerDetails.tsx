@@ -7,12 +7,15 @@ import { Container, NewButton } from "../../../components";
 import { TripInfoPanel } from "../../../components/TripInfoPanel";
 import { useSeatsSelected } from "../../../hooks/useSeatsSelected";
 import { MailIcon, PhoneIcon } from "../../../icons";
+import { toast } from "sonner";
+import { postPasajero } from "./services/pasajero.service";
+import { PasajeroBack } from "./model/pasajero.model";
 
 export function PassengerDetails() {
   const { seats } = useSeatsSelected();
   const [nextStep, setNexStep] = useState(false);
 
-  const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormPassengerData>({
+  const { control, handleSubmit, formState: { errors } } = useForm<FormPassengerData>({
     resolver: zodResolver(schemaFormPassenger),
     defaultValues: {
       pasajeros: seats.map(() => ({
@@ -28,9 +31,22 @@ export function PassengerDetails() {
   });
 
   const onSubmit: SubmitHandler<FormPassengerData> = (data) => {
-    console.log(data);
-    setNexStep(true);
 
+    data.pasajeros.forEach(async (pasajero) => {
+      const body: PasajeroBack = {
+        dni: pasajero.documento,
+        nombre: pasajero.nombres,
+        apellido_pat: pasajero.apellidos.split(" ")[0],
+        apellido_mat: pasajero.apellidos.split(" ")[1] || " ",
+        fecha_nacimiento: pasajero.fecha_nacimiento,
+        sexo: pasajero.sexo,
+      }
+      console.log(body)
+      const { success, message } = await postPasajero({ body })
+      if (!success) return toast.error(message)
+      toast.success(message)
+      setNexStep(true);
+    })
   }
 
   return (
@@ -49,7 +65,6 @@ export function PassengerDetails() {
                     index={index}
                     number={seat.numeroAsiento}
                     control={control}
-                    setValue={setValue}
                     error={errors}
                   />
                 ))
