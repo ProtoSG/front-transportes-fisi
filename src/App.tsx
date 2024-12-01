@@ -4,9 +4,9 @@ import { PassengerDetails, SearchResult, SeatSelection, User } from "./pages/use
 import Login from "./pages/login/Login"
 import { Admin } from "./pages/admin/Admin"
 import { AdminProfile, Asiento, Bus, Conductor, Descuento, ProgramacionViaje, Ruta, Servicio, Terminal } from "./pages/admin/pages"
-import { PrivateRoute } from "./components/PrivateRoute"
 import { Boleto, MetodoPago, Perfil, Compra } from "./pages/client/pages"
 import { Client } from "./pages/client/Client"
+import { PrivateRouteAdmin, PrivateRouteClient } from "./components/PrivateRoute"
 
 function App() {
   return (
@@ -17,11 +17,11 @@ function App() {
 
       <Route path="" element={<User />}>
         <Route path='/search-results' element={<SearchResult />} />
-        <Route path='/seat-selection' element={<PrivateRoute><SeatSelection /></PrivateRoute>} />
-        <Route path='/passenger-details' element={<PrivateRoute><PassengerDetails /></PrivateRoute>} />
+        <Route path='/seat-selection' element={<PrivateRouteClient><SeatSelection /></PrivateRouteClient>} />
+        <Route path='/passenger-details' element={<PrivateRouteClient><PassengerDetails /></PrivateRouteClient>} />
       </Route>
 
-      <Route path='/admin' element={<PrivateRoute><Admin /></PrivateRoute>} >
+      <Route path='/admin' element={<PrivateRouteAdmin><Admin /></PrivateRouteAdmin>} >
         <Route path="" element={<AdminProfile />} />
         <Route path="programacion-viaje" element={<ProgramacionViaje />} />
         <Route path="ruta" element={<Ruta />} />
@@ -32,7 +32,8 @@ function App() {
         <Route path="asiento" element={<Asiento />} />
         <Route path="servicio" element={<Servicio />} />
       </Route>
-      <Route path='/client' element={<Client />} >
+
+      <Route path='/client' element={<PrivateRouteClient><Client /></PrivateRouteClient>} >
         <Route path="perfil" element={<Perfil />} />
         <Route path="metodo-pago" element={<MetodoPago />} />
         <Route path="boleto" element={<Boleto />} />
