@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="bg-primary-500 h-56 mt-12 flex items-center px-[40px] md:px-[80px] lg:px-[120px] text-primary-50 justify-between">
       <div className="flex items-center gap-4">
         <img src={Logo} alt="Logo" />
-        <p className="text-3xl font-black">Transportes FISI</p>
+        <p className="text-3xl font-black">TourXpress</p>
       </div>
       <div>
         <p className="font-bold text-xl mb-4">Siguenos</p>
