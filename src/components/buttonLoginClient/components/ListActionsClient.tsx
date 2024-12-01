@@ -1,19 +1,36 @@
 import { useNavigate } from "react-router-dom"
 import { DashboardIcon, LogoutIcon } from "../../../icons"
 import { ItemListActionClient } from "./ItemListActionClient"
-import { removeFromLocalStorage } from "../../../services/localStorageActions"
+import { removeFromLocalStorage, loadFromLocalStorage } from "../../../services/localStorageActions"
 import { toast } from "sonner"
+import { jwtDecode} from "jwt-decode"
 
 interface Props {
   open: boolean
   setOpen: (open: boolean) => void
 }
 
+interface Identity {
+  role: string,
+  id: string,
+  fullname: string,
+  username: string
+}
+
 export function ListActionsClient({ open, setOpen }: Props) {
   const navigate = useNavigate()
 
   const handleGoToDashboard = () => {
-    navigate('/client')
+    const jwt_token = loadFromLocalStorage<string>("jwt_token", "")
+    if (!jwt_token) return
+
+    const decoded = jwtDecode(jwt_token)
+    const identity = decoded.sub
+    if (!identity) return
+
+    const identityParsed: Identity = JSON.parse(JSON.stringify(identity))
+    const role = identityParsed.role
+    navigate(`/${role}`)
   }
 
   const handleLogout = () => {
