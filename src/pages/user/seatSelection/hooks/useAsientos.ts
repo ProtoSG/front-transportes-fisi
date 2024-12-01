@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Asiento } from "../models/asiento.model"
 import { AsientoBack } from "../models/asientoBack.model"
 import { asientoAdapter } from "../adapters/asiendo.adapter"
+import { loadFromLocalStorage } from "../../../../services/localStorageActions"
 const api = import.meta.env.VITE_BACKEND_URL
 
 interface AsientosProps {
@@ -17,14 +18,26 @@ export const useAsientos = ({ id }: AsientosProps) => {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch(`${api}/asiento/bus/${id}`)
+      const token = loadFromLocalStorage("jwt_token", "")
+      const response = await fetch(`${api}/general/seat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id_viaje_programado: id,
+        })
+      })
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`)
       }
 
       const data: AsientoBack[] = await response.json()
+      console.log("DATA", data)
       const asientosAdap = data.map(asientoAdapter)
+      console.log("HOOK", asientosAdap)
 
       setAsientos(asientosAdap)
     } catch (err: unknown) {
