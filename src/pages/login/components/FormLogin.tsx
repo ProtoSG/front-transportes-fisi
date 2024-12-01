@@ -11,6 +11,7 @@ import { toast } from "sonner"
 import { useClient } from "../../../hooks/useClient"
 import { jwtDecode } from "jwt-decode"
 import { Token } from "../model/token.model"
+import { User } from "../model/user.model"
 
 interface Props {
   dialog?: boolean
@@ -48,13 +49,13 @@ export function FormLogin({ dialog, onClose }: Props) {
       if (decode.sub && typeof decode.sub === "object") {
         const data: Token = decode.sub
         console.log("DATA", data)
-        const user = {
+        const user: User = {
           id: data.id,
           role: data.role,
           username: data.username,
           fullname: data.fullname
         }
-        saveToLocalStorage("user", user)
+        saveToLocalStorage("user", user as User)
       }
 
       saveToLocalStorage("jwt_token", jwt_token)
