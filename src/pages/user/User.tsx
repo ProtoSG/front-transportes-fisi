@@ -14,7 +14,7 @@ export function User() {
 
 
   return (
-    <>
+    <main className="min-h-dvh flex flex-col">
       <ContainerBgHeader className="bg-bottom h-72">
         <Container className={`text-primary-50 h-full pt-4 ${!active ? "justify-center pb-10" : "justify-between"} `}>
           <Header />
@@ -29,6 +29,6 @@ export function User() {
       <Outlet />
       <Footer />
       <Toaster richColors />
-    </>
+    </main>
   )
 }

@@ -3,27 +3,22 @@ import { ViajeBack } from "../models/viajeBack.model";
 
 export const viajeAdapter = (viaje: ViajeBack): Viaje => {
   return {
-    idViaje: viaje.id_viaje,
+    idViaje: viaje.id_viaje_programado,
     embarque: {
-      hora: viaje.embarque.hora,
-      idTerminal: viaje.embarque.id_embarque,
-      ubicacion: viaje.embarque.ubicacion,
+      hora: viaje.hora_salida,
+      ubicacion: viaje.origen,
     },
     desembarque: {
-      hora: viaje.desembarque.hora,
-      idTerminal: viaje.desembarque.id_embarque,
-      ubicacion: viaje.desembarque.ubicacion,
+      hora: viaje.hora_llegada,
+      ubicacion: viaje.destino,
     },
     servicio: {
-      idServicio: viaje.servicio.id_servicio,
-      nombre: viaje.servicio.nombre,
-    },
-    bus: {
-      idBus: viaje.bus.id_bus,
-      piso: viaje.bus.piso,
+      nombre: viaje.servicio,
     },
     asientosDisponibles: viaje.asientos_disponibles,
-    precio: viaje.precio,
+    precio: viaje.precio_min,
+    distancia: viaje.distancia,
+    duracion: viaje.duracion,
   }
 };
 

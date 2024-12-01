@@ -4,10 +4,9 @@ import { AsientoBack } from "../models/asientoBack.model";
 export const asientoAdapter = (asiento: AsientoBack): Asiento => {
   return {
     idAsiento: asiento.id_asiento,
-    idBus: asiento.id_bus,
-    numeroAsiento: asiento.numero_asiento,
-    piso: asiento.piso,
-    precio: asiento.precio,
-    disponibilidad: asiento.disponibilidad
+    numeroAsiento: asiento.numero,
+    piso: asiento.nivel,
+    precio: parseFloat(asiento.precio),
+    disponibilidad: asiento.estado
   }
 }

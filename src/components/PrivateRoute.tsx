@@ -8,5 +8,5 @@ interface Props {
 
 export const PrivateRoute = ({ children }: Props) => {
   const token = loadFromLocalStorage<string>("jwt_token", "")
-  return token ? children : <Navigate to="/login" replace />
+  return token ? children : <Navigate to="/login/admin" replace />
 }

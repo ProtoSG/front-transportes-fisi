@@ -4,7 +4,7 @@ import { SeatSelected } from "./SeatSelected";
 
 export function RenderSeats({ asientos }: { asientos: Asiento[] }) {
   return asientos.map((asiento) => (
-    asiento.disponibilidad === 0 ? (
+    asiento.disponibilidad === "Disponible" ? (
       <SeatSelected key={asiento.idAsiento} />
     ) : (
       <SeatNotSelected

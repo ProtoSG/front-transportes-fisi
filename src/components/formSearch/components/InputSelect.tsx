@@ -1,40 +1,46 @@
 import { MapPinIcon, CaretDownIcon } from "@icons"
-import { useState } from "react"
-import { Control, Controller, FieldError } from "react-hook-form"
+import { useEffect, useState } from "react"
+import { Control, Controller, FieldError, useFormContext } from "react-hook-form"
 import { SearchFormData } from "../model/formSearch.mode"
 import { DropdownSearch } from "./DropdownSearch"
 import { ErrorInput } from "./ErrorInput"
-import { useCiudades } from "../hooks/useCiudades"
+import { useDepartamentosOrigen } from "../hooks/useDepartamentosOrigen"
+import { Departamento } from "../model/departamento.model"
+import { getDestinos } from "../services/departamento.service"
+import { useDestinosList } from "../hooks/useDestinosList"
 
-type OptProps = {
-  value: string,
-  label: string,
-}
 
 type InputSelectProps = {
   name: keyof SearchFormData
   control: Control<SearchFormData>
   error?: FieldError
+  origen?: boolean
 }
 
-export function InputSelect({ name, control, error }: InputSelectProps) {
+export function InputSelect({ name, control, error, origen }: InputSelectProps) {
   const [active, setActive] = useState<boolean>(false)
-  const { data: ciudades } = useCiudades()
-
-  const options: OptProps[] = ciudades.map(ciudad => ({
-    value: ciudad.nombre.toLowerCase(),
-    label: ciudad.nombre.toLowerCase()
-  }))
+  const { origenDestino, destinos, setDestinos } = useDestinosList()
+  const { data: departamentosOrigen } = useDepartamentosOrigen()
 
   const handleActive = () => {
     setActive(!active)
   }
 
+  const handleDestinos = async () => {
+    const destinos = await getDestinos(origenDestino)
+    setDestinos(destinos)
+  }
+
+  const options: Departamento[] = origen ? departamentosOrigen : destinos
+
   return (
     <div className="relative w-full">
       <div
         className="flex justify-between items-center p-2 border-2 rounded-lg border-primary-50/50 cursor-pointer"
-        onClick={handleActive}
+        onClick={() => {
+          !origen && handleDestinos()
+          handleActive()
+        }}
       >
         <div className="flex gap-2 items-center">
           <MapPinIcon />

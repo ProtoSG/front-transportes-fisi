@@ -5,6 +5,8 @@ import { Viaje } from "../../models/viaje.model";
 import { NewButton } from "../../../../../components";
 import { useDataTripInfo } from "../../../../../hooks/useDataTripInfo";
 import { useViajeSelected } from "../../../../../hooks/useViajeSelected";
+import { loadFromLocalStorage } from "../../../../../services/localStorageActions";
+import { useClient } from "../../../../../hooks/useClient";
 
 interface ServiceDetailsCardProps {
   viaje: Viaje
@@ -14,10 +16,19 @@ export function ServiceDetailsCard({ viaje }: ServiceDetailsCardProps) {
 
   const { setHora, setUbicacion, setTipoServicio } = useDataTripInfo()
   const { addViaje } = useViajeSelected()
+  const { token } = useClient()
 
   const navigate = useNavigate()
 
+
   const handleOnClick = () => {
+
+    console.log("TOKEN", token)
+    if (!token) {
+      const dialog = document.getElementById("dialog-login-client") as HTMLDialogElement
+      if (dialog) dialog.showModal()
+      return
+    }
     setHora(viaje.embarque.hora)
     setUbicacion(viaje.desembarque.ubicacion)
     setTipoServicio(viaje.servicio.nombre)
@@ -48,7 +59,7 @@ export function ServiceDetailsCard({ viaje }: ServiceDetailsCardProps) {
         <footer className="px-3 flex justify-between items-center">
           <div className="text-primary-400 flex items-center gap-2">
             <BusIcon />
-            <span className="text-xs">{viaje.bus.piso} pisos</span>
+            {/* <span className="text-xs">{viaje.bus.piso} pisos</span> */}
           </div>
           <p className="text-primary-500 font-bold text-xs">Solo quedan {viaje.asientosDisponibles} asientos</p>
         </footer>

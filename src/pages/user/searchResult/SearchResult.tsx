@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { ServiceDetailsCard } from "./components";
 import { useSearchViajes } from "./hooks/useSearchViajes";
-import { Container } from "../../../components";
+import { Container, DialogLoginClient } from "../../../components";
 import { TripInfoPanel } from "../../../components/TripInfoPanel";
 
 export function SearchResult() {
@@ -28,6 +28,7 @@ export function SearchResult() {
           ))}
         </section>
       </section>
+      <DialogLoginClient />
     </Container >
   )
 }

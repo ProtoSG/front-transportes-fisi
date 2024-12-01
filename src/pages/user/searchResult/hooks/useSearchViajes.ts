@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Viaje } from "../models/viaje.model"
 import { ViajeBack } from "../models/viajeBack.model"
 import { viajeAdapter } from "../adapters/viaje.adapter"
+import { loadFromLocalStorage } from "../../../../services/localStorageActions"
 const api = import.meta.env.VITE_BACKEND_URL
 
 interface useViajesProps {
@@ -19,15 +20,26 @@ export const useSearchViajes = ({ origen, destino, fecha }: useViajesProps) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `${api}/viaje/search?origen=${origen}&destino=${destino}&fecha=${fecha}`
-      );
+      const token = loadFromLocalStorage("jwt_token", "")
+      const response = await fetch(`${api}/general/scheduled-trip`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ciudad_origen: origen,
+          ciudad_destino: destino,
+          fecha: fecha,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
 
       const data: ViajeBack[] = await response.json();
+      console.log(data)
       const viajeAdap = data.map(viajeAdapter);
 
       setViajes(viajeAdap);

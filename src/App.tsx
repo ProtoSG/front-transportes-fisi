@@ -17,8 +17,8 @@ function App() {
 
       <Route path="" element={<User />}>
         <Route path='/search-results' element={<SearchResult />} />
-        <Route path='/seat-selection' element={<SeatSelection />} />
-        <Route path='/passenger-details' element={<PassengerDetails />} />
+        <Route path='/seat-selection' element={<PrivateRoute><SeatSelection /></PrivateRoute>} />
+        <Route path='/passenger-details' element={<PrivateRoute><PassengerDetails /></PrivateRoute>} />
       </Route>
 
       <Route path='/admin' element={<PrivateRoute><Admin /></PrivateRoute>} >

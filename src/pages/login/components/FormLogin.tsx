@@ -8,8 +8,15 @@ import { login } from "../services/login.service"
 import { Login } from "../model/login.model"
 import { saveToLocalStorage } from "../../../services/localStorageActions"
 import { toast } from "sonner"
+import { useClient } from "../../../hooks/useClient"
 
-export function FormLogin() {
+interface Props {
+  dialog?: boolean
+  onClose?: () => void
+}
+
+export function FormLogin({ dialog, onClose }: Props) {
+  const { setToken } = useClient()
   const { control, handleSubmit, formState: { errors } } = useForm<LoginData>({
     resolver: zodResolver(schemaLogin),
     defaultValues: {
@@ -29,12 +36,19 @@ export function FormLogin() {
       password: data.password
     }
 
-    const { success, message, jwt_token } = await login({ body, url: userType })
+    const { success, message, jwt_token } = dialog
+      ? await login({ body, url: "client" })
+      : await login({ body, url: userType })
 
     if (success) {
       saveToLocalStorage("jwt_token", jwt_token)
+      setToken(jwt_token)
+      if (dialog) {
+        onClose && onClose()
+        toast.success(message)
+        return
+      }
       navigete(url)
-      toast.success(message)
       return
     }
 

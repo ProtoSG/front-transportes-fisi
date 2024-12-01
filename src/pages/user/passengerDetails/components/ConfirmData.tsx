@@ -1,11 +1,11 @@
 import { NewButton } from "../../../../components";
 import { CheckQuestion } from "./CheckQuestion";
-import { DialogPayment } from "./DialogPayment";
+import { DialogConfirmPayment } from "./DialogConfirmPayment";
 
 export function ConfirmData() {
 
   const handleOpenDialog = () => {
-    const dialog = document.getElementById("dialog-payment") as HTMLDialogElement;
+    const dialog = document.getElementById("dialog-confirm-payment") as HTMLDialogElement;
     if (dialog) {
       dialog.showModal();
     }
@@ -42,7 +42,7 @@ export function ConfirmData() {
           <NewButton className="text-white text-xl max-w-60" onClick={handleOpenDialog}>Pagar Aquí</NewButton>
         </div>
       </section>
-      <DialogPayment />
+      <DialogConfirmPayment />
     </>
   )
 }

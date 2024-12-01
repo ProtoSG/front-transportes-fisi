@@ -2,9 +2,6 @@ import { Control, FieldErrors, UseFormSetValue, useWatch } from "react-hook-form
 import { InputField } from "./InputField";
 import { InputRadio } from "./InputRadio";
 import { FormPassengerData } from "../model/formPassenger.model";
-import { useDataDni } from "../hooks/useDataDni";
-import { useEffect } from "react";
-import { NewButton, SkeletonInput } from "../../../../components";
 import { IdIcon, UserOutlineIcon } from "../../../../icons";
 
 interface FormPassengerProps {
@@ -12,28 +9,9 @@ interface FormPassengerProps {
   number: number;
   control: Control<FormPassengerData>;
   error: FieldErrors<FormPassengerData>;
-  setValue?: UseFormSetValue<FormPassengerData>;
 }
 
-export function FormPassenger({ index, number, control, error, setValue }: FormPassengerProps) {
-
-  const dni = useWatch({
-    control,
-    name: `pasajeros.${index}.documento`,
-  });
-
-  const { data, loading, getData } = useDataDni();
-
-  const handleBuscarDatos = async () => {
-    await getData(dni);
-  };
-
-  useEffect(() => {
-    if (data) {
-      setValue?.(`pasajeros.${index}.nombres`, data.nombres as string);
-      setValue?.(`pasajeros.${index}.apellidos`, data.apellidos as string);
-    }
-  }, [data]);
+export function FormPassenger({ index, number, control, error }: FormPassengerProps) {
 
   return (
     <>
@@ -46,47 +24,30 @@ export function FormPassenger({ index, number, control, error, setValue }: FormP
           </p>
         </div>
         <div className="flex flex-col gap-3">
-          <fieldset className="grid grid-cols-2 gap-5 ">
-            <div className="">
-              <InputField
-                name={`pasajeros.${index}.documento`}
-                placeholder="N° de Documento"
-                control={control}
-                error={error.pasajeros?.[index]?.documento}
-                icon=<IdIcon className="text-zinc-400" />
-              />
-            </div>
-            <NewButton disabled={loading} type="button" className={`text-white ${loading ? "bg-primary-600" : ""}`}
-              onClick={() => {
-                handleBuscarDatos();
-              }}
-            >
-              {loading ? "Buscando..." : "Buscar Datos"}
-            </NewButton>
-          </fieldset>
+          <div className="">
+            <InputField
+              name={`pasajeros.${index}.documento`}
+              placeholder="N° de Documento"
+              control={control}
+              error={error.pasajeros?.[index]?.documento}
+              icon=<IdIcon className="text-zinc-400" />
+            />
+          </div>
           <fieldset className="flex gap-5 flex-col">
-            {loading
-              ? <SkeletonInput />
-              : <InputField
-                name={`pasajeros.${index}.nombres`}
-                placeholder="Nombres"
-                control={control}
-                error={error.pasajeros?.[index]?.nombres}
-                readonly
-                icon=<UserOutlineIcon className="text-zinc-400" />
-              />
-            }
-            {loading
-              ? <SkeletonInput />
-              : <InputField
-                name={`pasajeros.${index}.apellidos`}
-                placeholder="Apellidos"
-                control={control}
-                error={error.pasajeros?.[index]?.apellidos}
-                readonly
-                icon=<UserOutlineIcon className="text-zinc-400" />
-              />
-            }
+            <InputField
+              name={`pasajeros.${index}.nombres`}
+              placeholder="Nombres"
+              control={control}
+              error={error.pasajeros?.[index]?.nombres}
+              icon=<UserOutlineIcon className="text-zinc-400" />
+            />
+            <InputField
+              name={`pasajeros.${index}.apellidos`}
+              placeholder="Apellidos"
+              control={control}
+              error={error.pasajeros?.[index]?.apellidos}
+              icon=<UserOutlineIcon className="text-zinc-400" />
+            />
           </fieldset>
           <fieldset className="flex gap-5">
             <InputField
