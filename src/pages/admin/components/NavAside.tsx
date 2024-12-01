@@ -56,7 +56,9 @@ export function NavAside() {
   return (
     <aside className='flex flex-col bg-primary-900 rounded-xl items-center px-2 py-4  justify-between'>
       <div className='flex flex-col gap-20'>
-        <img src={logo} alt="logo" className="w-16" />
+        <a href='/'>
+          <img src={logo} alt="logo" className="w-16" />
+        </a>
         <nav>
           <ul className='flex flex-col gap-4 items-center text-white'>
             {
