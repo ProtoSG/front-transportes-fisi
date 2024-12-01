@@ -17,6 +17,7 @@ export const login = async ({ body, url }: Props) => {
     });
 
     const data = await response.json()
+    console.log({ data })
 
     if (data.error) {
       return { success: false, message: data.error, jwt_token: null }
