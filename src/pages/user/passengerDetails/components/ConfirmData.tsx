@@ -3,6 +3,7 @@ import { usePriceTotal } from "../../../../hooks/usePriceTotal";
 import { useSeatsSelected } from "../../../../hooks/useSeatsSelected";
 import { CheckQuestion } from "./CheckQuestion";
 import { DialogConfirmPayment } from "./DialogConfirmPayment";
+import { DialogLoading } from "./DialogLoading";
 
 export function ConfirmData() {
   const { total } = usePriceTotal()

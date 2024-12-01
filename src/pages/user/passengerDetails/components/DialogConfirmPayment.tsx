@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CloseIcon, VisaIcon } from "../../../../icons";
 import { CreditCardProps, useGetClientPaymentMethods } from "../../../client/hooks/api/useClientPaymentMethods";
 import { Control, Controller, FieldError, SubmitHandler, useForm } from "react-hook-form";
@@ -11,12 +10,8 @@ import { useTransactionData } from "../../../../hooks/useTransactionData";
 import { useClient } from "../../../../hooks/useClient";
 import { useTipoBoletaId } from "../hooks/useTipoBoletaId";
 import { useSeatsSelected } from "../../../../hooks/useSeatsSelected";
-import { useViajeSelected } from "../../../../hooks/useViajeSelected";
 import { postTransaction } from "../services/transaction.service";
 import { toast } from "sonner";
-import { loadFromLocalStorage } from "../../../../services/localStorageActions";
-import { jwtDecode } from "jwt-decode";
-import { CreditCardItem } from "../../../client/pages/metodoPago/components/CreditCardItem";
 import { useNavigate } from "react-router-dom";
 
 export function DialogConfirmPayment() {
@@ -72,10 +67,29 @@ export function DialogConfirmPayment() {
     }
 
     const { success, message } = await postTransaction({ body })
+
     handleCloseDialog()
+
+    if (success) {
+      const dialog = document.getElementById("dialog-loading") as HTMLDialogElement
+
+      setTimeout(() => {
+        if (dialog) {
+          dialog.showModal();
+
+          setTimeout(() => {
+            dialog.close();
+            toast.success(message)
+
+            setTimeout(() => {
+              navigate("/client/compra")
+            }, 1000)
+          }, 3000);
+        }
+      }, 200);
+    }
+
     if (!success) return toast.error(message)
-    toast.success(message)
-    navigate("/client/perfil")
   }
 
   return (
@@ -166,7 +180,7 @@ function getCurrentDateTime() {
   const now = new Date();
 
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // Mes empieza en 0, así que le sumamos 1
+  const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
