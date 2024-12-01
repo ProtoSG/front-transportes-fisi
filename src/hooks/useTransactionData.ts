@@ -10,17 +10,8 @@ interface Pasaje {
 }
 
 interface Props {
-  precioNeto: number
-  setPrecioNeto: (precioNeto: number) => void
-
-  igv: number
-  setIgv: (igv: number) => void
-
-  total: number
-  setTotal: (total: number) => void
-
-  fechaCompra: string
-  setFechaCompra: (fechaCompra: string) => void
+  idViaje: number
+  setIdViaje: (idViaje: number) => void
 
   ruc: string | null
   setRuc: (ruc: string | null) => void
@@ -34,11 +25,11 @@ interface Props {
   idCliente: number
   setIdCliente: (idCliente: number) => void
 
-  idDescuento: number
+  idDescuento: number | null
   setIdDescuento: (idDescuento: number) => void
 
-  idTipoBoleta: number
-  setIdTipoBoleta: (idTipoBoleta: number) => void
+  tipoBoleta: "boleta" | "factura"
+  setTipoBoleta: (tipoBoleta: "boleta" | "factura") => void
 
   idMetodoPago: number
   setIdMetodoPago: (idMetodoPago: number) => void
@@ -49,28 +40,30 @@ interface Props {
 }
 
 export const useTransactionData = create<Props>((set) => ({
-  precioNeto: 0,
-  setPrecioNeto: (precioNeto: number) => set(() => ({ precioNeto })),
-  igv: 0,
-  setIgv: (igv: number) => set(() => ({ igv })),
-  total: 0,
-  setTotal: (total: number) => set(() => ({ total })),
-  fechaCompra: "",
-  setFechaCompra: (fechaCompra: string) => set(() => ({ fechaCompra })),
+  idViaje: 0,
+  setIdViaje: (idViaje: number) => set(() => ({ idViaje })),
+
   ruc: null,
   setRuc: (ruc: string | null) => set(() => ({ ruc })),
+
   correo: "",
   setCorreo: (correo: string) => set(() => ({ correo })),
+
   telefono: "",
   setTelefono: (telefono: string) => set(() => ({ telefono })),
+
   idCliente: 0,
   setIdCliente: (idCliente: number) => set(() => ({ idCliente })),
-  idDescuento: 0,
+
+  idDescuento: null,
   setIdDescuento: (idDescuento: number) => set(() => ({ idDescuento })),
-  idTipoBoleta: 0,
-  setIdTipoBoleta: (idTipoBoleta: number) => set(() => ({ idTipoBoleta })),
+
+  tipoBoleta: "boleta",
+  setTipoBoleta: (tipoBoleta: "boleta" | "factura") => set(() => ({ tipoBoleta })),
+
   idMetodoPago: 0,
   setIdMetodoPago: (idMetodoPago: number) => set(() => ({ idMetodoPago })),
+
   pasaje: [],
   addPasaje: (pasaje: Pasaje) => set((state) => ({ pasaje: [...state.pasaje, pasaje] })),
   removePasaje: (idPasaje: number) => set((state) => {

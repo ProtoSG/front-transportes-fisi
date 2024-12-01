@@ -8,7 +8,7 @@ interface ViajeSelectedProps {
 }
 
 export const useViajeSelected = create<ViajeSelectedProps>((set => ({
-  viaje: null,
+  viaje: {} as Viaje,
   cleanViaje: () => set(() => ({ viaje: null })),
   addViaje: (viaje: Viaje) => set(() => ({ viaje: viaje })),
 })))
