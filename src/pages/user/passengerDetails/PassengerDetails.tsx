@@ -10,10 +10,12 @@ import { MailIcon, PhoneIcon } from "../../../icons";
 import { toast } from "sonner";
 import { postPasajero } from "./services/pasajero.service";
 import { PasajeroBack } from "./model/pasajero.model";
+import { useTransactionData } from "../../../hooks/useTransactionData";
 
 export function PassengerDetails() {
-  const { seats } = useSeatsSelected();
+  const { seats, updateSeat } = useSeatsSelected();
   const [nextStep, setNexStep] = useState(false);
+  const { setCorreo, setTelefono } = useTransactionData()
 
   const { control, handleSubmit, formState: { errors } } = useForm<FormPassengerData>({
     resolver: zodResolver(schemaFormPassenger),
@@ -31,8 +33,7 @@ export function PassengerDetails() {
   });
 
   const onSubmit: SubmitHandler<FormPassengerData> = (data) => {
-
-    data.pasajeros.forEach(async (pasajero) => {
+    data.pasajeros.forEach(async (pasajero, index) => {
       const body: PasajeroBack = {
         dni: pasajero.documento,
         nombre: pasajero.nombres,
@@ -42,9 +43,16 @@ export function PassengerDetails() {
         sexo: pasajero.sexo,
       }
       console.log(body)
-      const { success, message } = await postPasajero({ body })
+      const { success, message, idPasajero } = await postPasajero({ body })
       if (!success) return toast.error(message)
       toast.success(message)
+
+      const seat = seats[index]
+      updateSeat(seat.idAsiento, idPasajero)
+
+      setCorreo(data.email)
+      setTelefono(data.phone)
+
       setNexStep(true);
     })
   }
@@ -57,7 +65,7 @@ export function PassengerDetails() {
           nextStep ? (
             <ConfirmData />
           ) : (
-            <form className="w-full gap-7 flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+            <form className="relative w-full gap-7 flex flex-col" onSubmit={handleSubmit(onSubmit)}>
               {
                 seats.map((seat, index) => (
                   <FormPassenger

@@ -5,8 +5,6 @@ import { RenderSeats } from "./RenderSeats";
 export function SeatSelector() {
   const { viaje } = useViajeSelected()
 
-  console.log("VIAJE", viaje)
-
   if (!viaje) return null
 
   const { asientos } = useAsientos({ id: viaje.idViaje })

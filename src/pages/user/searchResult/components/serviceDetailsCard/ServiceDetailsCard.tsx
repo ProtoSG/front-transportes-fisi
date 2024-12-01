@@ -7,6 +7,7 @@ import { useDataTripInfo } from "../../../../../hooks/useDataTripInfo";
 import { useViajeSelected } from "../../../../../hooks/useViajeSelected";
 import { loadFromLocalStorage } from "../../../../../services/localStorageActions";
 import { useClient } from "../../../../../hooks/useClient";
+import { useTransactionData } from "../../../../../hooks/useTransactionData";
 
 interface ServiceDetailsCardProps {
   viaje: Viaje
@@ -16,6 +17,7 @@ export function ServiceDetailsCard({ viaje }: ServiceDetailsCardProps) {
 
   const { setHora, setUbicacion, setTipoServicio } = useDataTripInfo()
   const { addViaje } = useViajeSelected()
+  const { setIdViaje } = useTransactionData()
   const { token } = useClient()
 
   const navigate = useNavigate()
@@ -33,6 +35,7 @@ export function ServiceDetailsCard({ viaje }: ServiceDetailsCardProps) {
     setUbicacion(viaje.desembarque.ubicacion)
     setTipoServicio(viaje.servicio.nombre)
     addViaje(viaje)
+    setIdViaje(viaje.idViaje)
     navigate("/seat-selection")
   }
 
