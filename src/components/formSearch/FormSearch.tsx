@@ -38,6 +38,7 @@ export function FormSearch() {
             name="ciudadOrigen"
             control={control}
             error={errors.ciudadOrigen}
+            origen
           />
           <InputSelect
             name="ciudadDestino"
