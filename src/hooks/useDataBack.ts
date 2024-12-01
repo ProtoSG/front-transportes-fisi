@@ -5,7 +5,6 @@ const api = import.meta.env.VITE_BACKEND_URL
 interface DataBackProps {
   url: string
   jsonAdapter: (json: any) => any
-  body?: Record<string, any> | null
 }
 
 export const useDataBack = <T>({
