@@ -1,40 +1,12 @@
-import { useEffect, useState } from "react"
 import { Ciudad } from "../model/ciudad.model"
-
-interface CiudadBack {
-  id_ciudad: number,
-  nombre: string
-}
+import { useDataBack } from "../../../hooks/useDataBack"
+import { ciudadAdapter } from "../adapters/ciudad.adapter"
 
 export const useCiudades = () => {
-  const [ciudades, setCiudades] = useState<Ciudad[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
+  const { data, loading, error } = useDataBack<Ciudad>({
+    url: "/terminal/departamento",
+    jsonAdapter: ciudadAdapter,
+  })
 
-  async function getCiudades() {
-    setLoading(true)
-    try {
-      const response = await fetch("http://localhost:8080/ciudad")
-      const data = await response.json()
-
-      const ciudadAdapter = data.map((ciudad: CiudadBack) => ({
-        id: ciudad.id_ciudad,
-        nombre: ciudad.nombre
-      }))
-
-      setCiudades(ciudadAdapter)
-    }
-    catch (error) {
-      setError(error as Error)
-    }
-    finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    getCiudades()
-  }, [])
-
-  return { ciudades, loading, error }
+  return { data, loading, error }
 }

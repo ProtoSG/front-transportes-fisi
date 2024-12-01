@@ -1,76 +1,19 @@
-import { DialogAddEdit, Header, Section, Table } from "../../components";
-import { createColumns } from "../../services/createColumns";
-import { FormBus } from "./components";
+import { DialogAddEdit } from "../../components";
+import { FormBus ,MainBus } from "./components";
+import { BusProvider } from "./hooks/useBus";
+import { useEditBus } from "./hooks/useEditBus";
 
 export function Bus() {
+  const{isEdit} = useEditBus()
 
-  const columns = createColumns([
-    "id",
-    "asientos",
-    "placa",
-    "marca",
-    "niveles",
-    "id_tipo_servicio_bus"
-  ])
-
-  const data = [
-    {
-      id: "1",
-      asientos: "2",
-      placa: "123456",
-      marca: "Mercedes",
-      niveles: "2",
-      id_tipo_servicio_bus: "1"
-    },
-    {
-      id: "2",
-      asientos: "2",
-      placa: "123456",
-      marca: "Mercedes",
-      niveles: "2",
-      id_tipo_servicio_bus: "1"
-    },
-    {
-      id: "3",
-      asientos: "2",
-      placa: "123456",
-      marca: "Mercedes",
-      niveles: "2",
-      id_tipo_servicio_bus: "1"
-    },
-    {
-      id: "4",
-      asientos: "2",
-      placa: "123456",
-      marca: "Mercedes",
-      niveles: "2",
-      id_tipo_servicio_bus: "1"
-    },
-  ]
-
-  const handleOpenDialog = () => {
-    const dialog = document.getElementById('dialog-bus') as HTMLDialogElement
-    if (dialog) dialog.showModal()
-  }
-
-  return (
-    <>
-      <Section>
-        <Header
-          title="Bus"
-          onClick={handleOpenDialog}
-        />
-        <Table
-          columns={columns}
-          data={data}
-        />
-      </Section>
-      <DialogAddEdit
-        id="dialog-bus"
-        title="Nuevo Bus"
-      >
+  return(
+    <BusProvider>
+      <MainBus />
+      <DialogAddEdit 
+      id="dialog-bus"
+      title={isEdit ? "Editar Bus" : "Nuevo Bus"}>
         <FormBus />
       </DialogAddEdit>
-    </>
+    </BusProvider>
   )
 }

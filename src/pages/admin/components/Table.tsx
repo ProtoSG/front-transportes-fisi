@@ -1,8 +1,12 @@
 import DataTable, { createTheme } from "react-data-table-component";
+import { Loading } from "./Loading";
+import { Error } from "./Error";
 
 interface TableProps {
   columns: any[];
   data: any[];
+  loading?: boolean;
+  error?: Error | null;
 }
 
 createTheme('dark', {
@@ -13,7 +17,7 @@ createTheme('dark', {
     default: 'transparent',
   },
   divider: {
-    default: '#7DA3A3',
+    default: '#E5EDED',
   }
 })
 
@@ -31,7 +35,11 @@ const customStyles = {
   }
 }
 
-export function Table({ columns, data }: TableProps) {
+export function Table({ columns, data, loading, error }: TableProps) {
+
+  if (loading) return <Loading />
+  if (error) return <Error message={error.message} />
+
   return (
     <div className="overflow-x-scroll w-full">
       <DataTable
@@ -39,8 +47,8 @@ export function Table({ columns, data }: TableProps) {
         data={data}
         pagination
         paginationPerPage={10}
-        selectableRows
-        onSelectedRowsChange={(state) => console.log(state.selectedRows)}
+        // selectableRows
+        // onSelectedRowsChange={(state) => console.log(state.selectedRows)}
         theme="dark"
         customStyles={customStyles}
       />

@@ -19,7 +19,7 @@ export function InputFieldLight<T extends FieldValues>({ icon, type, placeholder
       <span className="text-xl font-medium">
         {label}
       </span>
-      <div className={`flex gap-4 items-center w-full px-2   border-2 border-primary-50 rounded-md`}>
+      <div className={`flex gap-4 items-center w-full px-2   border-2 border-primary-50 rounded-md relative `}>
         {icon}
         <Controller
           control={control}

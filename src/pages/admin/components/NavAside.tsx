@@ -1,4 +1,4 @@
-import { BusIcon, LogoutIcon } from '../../../icons'
+import { BusIcon, LogoutIcon, ServiceIcon, UserOutlineIcon } from '../../../icons'
 import { ChairIcon } from '../../../icons/ChairIcon'
 import { DiscountIcon } from '../../../icons/DiscountIcon'
 import { DriverIcon } from '../../../icons/DriverIcon'
@@ -7,50 +7,63 @@ import { PlaneIcon } from '../../../icons/PlaneIcon'
 import { RouteIcon } from '../../../icons/RouteIcon'
 import logo from '../../../assets/logo.png'
 import { LinkItem } from './LinkItem'
+import { removeFromLocalStorage } from '../../../services/localStorageActions'
 
 const links = [
   {
-    icon: <PlaneIcon className="text-white" />,
-    link: "programacion-viaje",
+    icon: <UserOutlineIcon />,
+    link: ""
   },
   {
-    icon: <RouteIcon className="text-white" />,
-    link: "ruta"
+    icon: <PlaneIcon />,
+    link: "/programacion-viaje",
   },
   {
-    icon: <BusIcon className="text-white" />,
-    link: "bus"
+    icon: <RouteIcon />,
+    link: "/ruta"
   },
   {
-    icon: <HomeIcon className="text-white" />,
-    link: "terminal"
+    icon: <BusIcon />,
+    link: "/bus"
   },
   {
-    icon: <DiscountIcon className="text-white" />,
-    link: "descuento"
+    icon: <HomeIcon />,
+    link: "/terminal"
   },
   {
-    icon: <DriverIcon className="text-white" />,
-    link: "conductor"
+    icon: <DiscountIcon />,
+    link: "/descuento"
   },
   {
-    icon: <ChairIcon className="text-white" />,
-    link: "asiento"
+    icon: <DriverIcon />,
+    link: "/conductor"
+  },
+  {
+    icon: <ChairIcon />,
+    link: "/asiento"
+  },
+  {
+    icon: <ServiceIcon />,
+    link: "/servicio"
   }
 ]
 
+const handleLogout = () => {
+  removeFromLocalStorage("jwt_token")
+}
+
 export function NavAside() {
   return (
-    <aside className='flex flex-col h-full justify-between'>
+    <aside className='flex flex-col bg-primary-900 rounded-xl items-center px-2 py-4  justify-between'>
       <div className='flex flex-col gap-20'>
         <img src={logo} alt="logo" className="w-16" />
         <nav>
-          <ul className='flex flex-col gap-4'>
+          <ul className='flex flex-col gap-4 items-center text-white'>
             {
               links.map((link) => (
                 <li key={link.link}>
                   <LinkItem
-                    link={`/admin/${link.link}`}
+                    link={`/admin${link.link}`}
                     icon={link.icon}
                   />
                 </li>
@@ -60,11 +73,9 @@ export function NavAside() {
         </nav>
       </div>
       <LinkItem
-        link="/login"
+        link="/login/admin"
         icon={<LogoutIcon className="text-white" />}
-        onClick={() => {
-          console.log("logout")
-        }}
+        onClick={handleLogout}
       />
     </aside>
 

@@ -3,7 +3,11 @@ import { LoginData, schemaLogin } from "../model/formLogin.model"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { InputFieldLight, NewButton } from "../../../components"
 import { LockIcon, UserOutlineIcon } from "../../../icons"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { login } from "../services/login.service"
+import { Login } from "../model/login.model"
+import { saveToLocalStorage } from "../../../services/localStorageActions"
+import { toast } from "sonner"
 
 export function FormLogin() {
   const { control, handleSubmit, formState: { errors } } = useForm<LoginData>({
@@ -15,10 +19,26 @@ export function FormLogin() {
   })
 
   const navigete = useNavigate()
+  const { userType } = useParams()
 
-  const onSubmit = (data: LoginData) => {
-    console.log(data)
-    navigete("/admin")
+  const url = userType === 'client' ? `/` : `/${userType}`
+
+  const onSubmit = async (data: LoginData) => {
+    const body: Login = {
+      username: data.username,
+      password: data.password
+    }
+
+    const { success, message, jwt_token } = await login({ body, url: userType })
+
+    if (success) {
+      saveToLocalStorage("jwt_token", jwt_token)
+      navigete(url)
+      toast.success(message)
+      return
+    }
+
+    toast.error(message)
   }
 
   return (

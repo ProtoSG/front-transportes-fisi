@@ -9,7 +9,7 @@ export default function Hero() {
         <Header />
         <div className="flex py-20 flex-col md:flex-row flex-1 justify-between gap-12 items-center">
           <div className="">
-            <p className="font-black text-center md:text-start text-4xl lg:text-6xl">Los Lugares <br /> Más Bellos del Perú</p>
+            <p className="font-black text-center md:text-start text-4xl lg:text-6xl img-thumbnail animate__animated animate__zoomIn">Los lugares <br /> más bellos del Perú</p>
             <p className="text-xl lg:text-2xl text-center md:text-start ">Planifica tus vacaciones en los lugares más bellos del Perú</p>
           </div>
           {/*Card*/}

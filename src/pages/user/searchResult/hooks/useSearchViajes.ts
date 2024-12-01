@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Viaje } from "../models/viaje.model"
 import { ViajeBack } from "../models/viajeBack.model"
 import { viajeAdapter } from "../adapters/viaje.adapter"
-import { api } from "../../../../api/api"
+const api = import.meta.env.VITE_BACKEND_URL
 
 interface useViajesProps {
   origen: string
