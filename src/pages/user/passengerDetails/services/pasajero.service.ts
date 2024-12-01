@@ -21,6 +21,10 @@ export const postPasajero = async ({ body }: Props) => {
 
     const data = await response.json()
 
+    if (!response.ok) {
+      return { success: false, message: "Error Interno" }
+    }
+
     if (data.error) {
       return { success: false, message: data.error }
     }
