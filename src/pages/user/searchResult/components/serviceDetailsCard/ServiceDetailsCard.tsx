@@ -18,19 +18,18 @@ export function ServiceDetailsCard({ viaje }: ServiceDetailsCardProps) {
   const { setHora, setUbicacion, setTipoServicio } = useDataTripInfo()
   const { addViaje } = useViajeSelected()
   const { setIdViaje } = useTransactionData()
-  const { token } = useClient()
+  const { token, user } = useClient()
 
   const navigate = useNavigate()
 
-
   const handleOnClick = () => {
-
-    console.log("TOKEN", token)
-    if (!token) {
+    if (!token || user.role !== "client") {
+      console.log("PASA")
       const dialog = document.getElementById("dialog-login-client") as HTMLDialogElement
       if (dialog) dialog.showModal()
       return
     }
+
     setHora(viaje.embarque.hora)
     setUbicacion(viaje.desembarque.ubicacion)
     setTipoServicio(viaje.servicio.nombre)
