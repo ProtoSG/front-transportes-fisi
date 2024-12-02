@@ -25,6 +25,9 @@ interface Props {
   idCliente: number
   setIdCliente: (idCliente: number) => void
 
+  descuento: number
+  setDescuento: (descuento: number) => void
+
   idDescuento: number | null
   setIdDescuento: (idDescuento: number) => void
 
@@ -54,6 +57,9 @@ export const useTransactionData = create<Props>((set) => ({
 
   idCliente: 0,
   setIdCliente: (idCliente: number) => set(() => ({ idCliente })),
+
+  descuento: 0,
+  setDescuento: (descuento: number) => set(() => ({ descuento })),
 
   idDescuento: null,
   setIdDescuento: (idDescuento: number) => set(() => ({ idDescuento })),
