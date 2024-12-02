@@ -18,5 +18,5 @@ export const PrivateRouteClient = ({ children }: Props) => {
   const token = loadFromLocalStorage<string>("jwt_token", "")
   const user = loadFromLocalStorage<User>("user", {} as User)
 
-  return token && user.role === "client" ? children : <Navigate to={`/login/admin}`} replace />
+  return token && user.role === "client" ? children : <Navigate to={`/login/client}`} replace />
 }
