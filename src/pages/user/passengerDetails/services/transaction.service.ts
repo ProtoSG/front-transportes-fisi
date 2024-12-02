@@ -2,13 +2,13 @@ import { loadFromLocalStorage } from "../../../../services/localStorageActions"
 import { Transaction } from "../model/transaction.model"
 
 const api = import.meta.env.VITE_BACKEND_URL
-const token = loadFromLocalStorage("jwt_token", "")
 
 interface Props {
   body: Transaction
 }
 
 export const postTransaction = async ({ body }: Props) => {
+  const token = loadFromLocalStorage("jwt_token", "")
   try {
     const response = await fetch(`${api}/transaction/new`, {
       method: "POST",
