@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function FormLogin({ dialog, onClose }: Props) {
-  const { setToken } = useClient()
+  const { setToken, setUser } = useClient()
   const { control, handleSubmit, formState: { errors } } = useForm<LoginData>({
     resolver: zodResolver(schemaLogin),
     defaultValues: {
@@ -56,6 +56,7 @@ export function FormLogin({ dialog, onClose }: Props) {
           fullname: data.fullname
         }
         saveToLocalStorage("user", user as User)
+        setUser(user)
       }
 
       saveToLocalStorage("jwt_token", jwt_token)
