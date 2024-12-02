@@ -11,7 +11,10 @@ interface Props {
 
 export const useDiscountId = async ({ codigo }: Props) => {
   const response = await fetch(`${api}/discount/${codigo}`)
+  if (response.status === 404) {
+    return { success: false, error: 'Cupon ya utilizado' }
+  }
   const data: DescuentoBack = await response.json()
   const dataAdap = descuentoIdAdapter(data)
-  return { data: dataAdap }
+  return { success: true, data: dataAdap }
 }

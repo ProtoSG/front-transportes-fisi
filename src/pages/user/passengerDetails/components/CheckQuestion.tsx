@@ -16,7 +16,7 @@ export function CheckQuestion({ question, type }: CheckQuestionProps) {
   const [codigo, setCodigo] = useState("");
   const [ruc, setRuc] = useState("");
   const [tipo, setTipo] = useState<"boleta" | "factura">("boleta");
-  const { setIdDescuento, setTipoBoleta, setRuc: setRucTransaction } = useTransactionData()
+  const { setIdDescuento, setTipoBoleta, setRuc: setRucTransaction, setDescuento } = useTransactionData()
   const { decrementTotal } = usePriceTotal()
 
   const handleActive = () => {
@@ -36,12 +36,17 @@ export function CheckQuestion({ question, type }: CheckQuestionProps) {
 
   const handleSubmitDiscount = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { data } = await useDiscountId({ codigo })
-
-    setIdDescuento(data?.id)
-    decrementTotal(data?.monto)
-    if (data?.id) return toast.success("Se ha guardado el descuento")
-    return toast.error("No se ha encontrado el descuento")
+    const { success, data, error } = await useDiscountId({ codigo })
+    if (error) {
+      return toast.error(error)
+    }
+    if (data && success) {
+      setIdDescuento(data.id)
+      setDescuento(data.monto)
+      decrementTotal(data.monto)
+      if (data.id) return toast.success("Se aplico correctamente el descuento")
+    }
+    setCodigo("")
   }
 
   const handleSubmitRuc = async (e: FormEvent<HTMLFormElement>) => {

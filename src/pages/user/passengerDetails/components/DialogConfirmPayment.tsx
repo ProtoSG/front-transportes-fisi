@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 export function DialogConfirmPayment() {
   const { creditCards, loading, error } = useGetClientPaymentMethods()
   const { total } = usePriceTotal()
-  const { telefono, correo, idDescuento, tipoBoleta, ruc, idViaje } = useTransactionData()
+  const { telefono, correo, idDescuento, tipoBoleta, ruc, idViaje, descuento } = useTransactionData()
   const { seats } = useSeatsSelected()
 
   const { user } = useClient()
@@ -40,20 +40,26 @@ export function DialogConfirmPayment() {
 
     const { id_tipo_boleta } = await useTipoBoletaId({ tipo: tipoBoleta })
 
-    const pasajeros = seats.map((seat) => ({
-      precio_neto: 0.82 * seat.precio,
-      igv: 0.18 * seat.precio,
-      precio_total: seat.precio,
-      id_pasajero: seat.idPasajero,
-      id_asiento: seat.idAsiento,
-      id_viaje_programado: idViaje
-    }))
+    const descuentoPorPasajero = descuento / seats.length
+    const pasajeros = seats.map((seat) => {
+      const total = seat.precio - descuentoPorPasajero
+      const precioNetoPasajero = total / 1.18
 
-    console.log("PASAJEROS", pasajeros)
+      return {
+        precio_neto: precioNetoPasajero,
+        igv: seat.precio - precioNetoPasajero,
+        precio_total: total,
+        id_pasajero: seat.idPasajero,
+        id_asiento: seat.idAsiento,
+        id_viaje_programado: idViaje
+      }
+    })
+
+    const precioNetoTotal = total / 1.18
 
     const body = {
-      precio_neto: 0.82 * total,
-      igv: 0.18 * total,
+      precio_neto: precioNetoTotal,
+      igv: total - precioNetoTotal,
       precio_total: total,
       fecha_compra: getCurrentDateTime(),
       ruc: tipoBoleta === "factura" ? ruc : null,
@@ -67,10 +73,10 @@ export function DialogConfirmPayment() {
     }
 
     const { success, message } = await postTransaction({ body })
-
     handleCloseDialog()
 
     if (success) {
+      console.log({ success, message })
       const dialog = document.getElementById("dialog-loading") as HTMLDialogElement
 
       setTimeout(() => {

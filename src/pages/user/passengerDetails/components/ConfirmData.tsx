@@ -50,6 +50,7 @@ export function ConfirmData() {
           <NewButton className="text-white text-xl max-w-60" onClick={handleOpenDialog}>Pagar Aquí</NewButton>
         </div>
       </section>
+      <DialogLoading />
       <DialogConfirmPayment />
     </>
   )
